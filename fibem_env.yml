@@ -1,0 +1,13 @@
+name: fibem_env
+channels:
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - fmpy
+  - pydantic
+  - pip:
+    - pyqt5
+    - filip

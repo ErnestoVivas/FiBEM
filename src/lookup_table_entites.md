@@ -6,4 +6,5 @@ represented by following indices:
 | KEY | VALUE |
 | --- | --- |
 | 0 | Heat_Pump |
-| 1 | Weather_Condition |
+| 1 | Electric_Boiler |
+| 2 | Weather_Condition |

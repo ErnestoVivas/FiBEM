@@ -7,11 +7,15 @@
 '''
 
 from add_entity_dialog import AddEntityDialog
+from startup_dialog import StartupDialog
+
+from building_energy_system import BuildingEnergySystem
 
 from gui import mainwindow_ui
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QListWidgetItem, QMessageBox
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -23,23 +27,63 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # sub dialogs
+        # sub windows and dialogs
         self.add_entity_dialog = None
-
+        self.startup_dialog = None
 
         # connect buttons to their respective functions
         self.ui.button_add_entity.clicked.connect(self.add_entity)
+        self.ui.button_delete_entity.clicked.connect(self.delete_entity)
+
+        # init bes
+        self.building_energy_system = None
+        self.startup_dialog = StartupDialog()
+        self.startup_dialog.bes_id_set.connect(self.init_bes)
+        self.startup_dialog.setWindowModality(Qt.ApplicationModal)
+        self.startup_dialog.show()
 
 
-    def add_entity_to_bes(self, chosen_entity):
-        print(chosen_entity)
-        if chosen_entity == 0:
-            pass
-        elif chosen_entity == 1:
-            pass
+    def init_bes(self, bes_id):
+        self.building_energy_system = BuildingEnergySystem(bes_id)
+        self.display_bes()
+
+
+    def display_bes(self):
+        self.ui.list_widget_entities.clear()
+        self.ui.list_widget_relationships.clear()
+        for entity in self.building_energy_system.entities:
+            entity_data = [entity.id, entity.type]
+            entity_data_str = "{: <70} {: <20}".format(*entity_data)
+            self.ui.list_widget_entities.addItem(QListWidgetItem(entity_data_str))
+
+
+    def add_entity_to_bes(self, chosen_entity, entity_id):
+        self.building_energy_system.add_entity(chosen_entity, entity_id)
+        self.display_bes()
+
 
     def add_entity(self):
-        self.add_entity_dialog = AddEntityDialog()
+        self.add_entity_dialog = AddEntityDialog(self.building_energy_system.id)
         self.add_entity_dialog.chosen_entity.connect(self.add_entity_to_bes)
         self.add_entity_dialog.setWindowModality(Qt.ApplicationModal)
         self.add_entity_dialog.show()
+
+
+    def delete_entity(self):
+
+        # the list of entities in the guy corresponds to the order entities are
+        # stored on the 'building_energy_system' object
+
+        current_entity_index = self.ui.list_widget_entities.currentRow()
+        print(current_entity_index)
+        if current_entity_index < 0:
+            no_item_selected_message_box = QMessageBox()
+            no_item_selected_message_box.setIcon(QMessageBox.Warning)
+            no_entities_message_box.setText("Can not delete entity: No entity has been selected.")
+            no_entities_message_box.setWindowTitle("No entity selected")
+            no_entities_message_box.setStandardButtons(QMessageBox.Ok)
+            answer = no_entities_message_box.exec()
+            return
+        else:
+            self.building_energy_system.delete_entity(current_entity_index)
+            self.display_bes()

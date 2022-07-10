@@ -1,6 +1,6 @@
 from gui import add_entity_dialog_ui
 
-from bes_entities import heat_pump_strings
+# from bes_entities import heat_pump_strings
 from bes_entities import electric_boiler
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -45,8 +45,8 @@ class AddEntityDialog(QtWidgets.QDialog):
     def display_entity_properties(self):
         current_entity = self.ui.combo_box_choose_entity.currentIndex()
         if current_entity == 0:
-            self.ui.line_edit_brick_type.setText(heat_pump_strings.heat_pump_ontology_type)
-            self.ui.plain_text_edit_brick_definition.setPlainText(heat_pump_strings.heat_pump_ontology_definition)
+            self.ui.line_edit_brick_type.setText("ebc:Heat_Pump")
+            self.ui.plain_text_edit_brick_definition.setPlainText("Heat pump definition")
         elif current_entity == 1:
             electric_boiler_count = electric_boiler.ElectricBoiler.get_entity_count()
             self.ui.line_edit_set_id.setText(self.bes_id + ":Electric_Boiler:" + str(electric_boiler_count))

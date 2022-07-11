@@ -32,16 +32,16 @@ class ElectricBoiler(BaseEntity):
                 "timezone": "Europe/Berlin",     # default value, can be set by user
                 "protocol": "IoTA-JSON",
                 "transport": "MQTT",
-                "attributes": [
-                    power_attr
-                ],
-                "static_attributes": [
-                    {
-                        "name": "refEntity",
-                        "type": "Relationship",
-                        "value": self.base_attributes["id"]
-                    }
-                ]
+                #"attributes": [
+                #    power_attr
+                #],
+                #"static_attributes": [
+                #    {
+                #        "name": "refEntity",
+                #        "type": "Relationship",
+                #        "value": self.base_attributes["id"]
+                #    }
+                #]
             }
         )
         # devices of an electric boiler: power in, heat out, efficiency

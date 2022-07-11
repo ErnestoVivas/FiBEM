@@ -8,6 +8,7 @@
 
 from add_entity_dialog import AddEntityDialog
 from startup_dialog import StartupDialog
+from fiware_config_dialog import FiwareConfigDialog
 
 from building_energy_system import BuildingEnergySystem
 
@@ -30,10 +31,12 @@ class MainWindow(QtWidgets.QMainWindow):
         # sub windows and dialogs
         self.add_entity_dialog = None
         self.startup_dialog = None
+        self.fiware_config_dialog = None
 
         # connect buttons to their respective functions
         self.ui.button_add_entity.clicked.connect(self.add_entity)
         self.ui.button_delete_entity.clicked.connect(self.delete_entity)
+        self.ui.button_push_to_fiware.clicked.connect(self.push_to_fiware)
 
         # init bes
         self.building_energy_system = None
@@ -87,3 +90,8 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.building_energy_system.delete_entity(current_entity_index)
             self.display_bes()
+
+    def push_to_fiware(self):
+        self.fiware_config_dialog = FiwareConfigDialog()
+        self.fiware_config_dialog.setWindowModality(Qt.ApplicationModal)
+        self.fiware_config_dialog.show()

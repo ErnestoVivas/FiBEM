@@ -6,11 +6,11 @@
 class BaseEntity():
 
     def __init__(self, new_id, new_type):
-
         self.base_attributes = {
             "id": new_id,
             "type": new_type,
         }
+        self.devices = []
 
 
         #self.id: str = new_id

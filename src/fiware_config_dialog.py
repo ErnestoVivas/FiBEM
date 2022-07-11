@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QMessageBox
 
 
 from filip.models.ngsi_v2.context import ContextEntity
+from filip.models.ngsi_v2.iot import Device
 from filip.clients.ngsi_v2.cb import ContextBrokerClient
 from filip.clients.ngsi_v2.iota import IoTAClient
 from filip.models.base import FiwareHeader
@@ -41,21 +42,23 @@ class FiwareConfigDialog(QtWidgets.QDialog):
         fw_url = "http://localhost"
         fw_apikey = "747400"
         fw_service = "openiot"
-        fw_service_path = "/American"
+        fw_service_path = "/TACA"
         fw_header = FiwareHeader(service = fw_service, service_path = fw_service_path)
-
-        # Instantiate a simple entity
-        sample_entity = {
-            "id": "urn:ngsi-ld:bes",
-            "type": "Site"
-        }
-        fw_entity = ContextEntity(**sample_entity)
 
         # post the entity
         try:
+
+            # post entities
             with ContextBrokerClient(url = fw_url + ":1026", fiware_header = fw_header) as client:
                 for entity in self.building_energy_system.entities:
                     client.post_entity(entity = ContextEntity(**(entity.base_attributes)))
+
+            # post devices
+            with IoTAClient(url = fw_url + ":4041", fiware_header = fw_header) as iota_client:
+                for entity in self.building_energy_system.entities:
+                    for device in entity.devices:
+                        iota_client.post_device(device = Device(**device))
+
             post_successful_msg = QMessageBox()
             post_successful_msg.setIcon(QMessageBox.Information)
             post_successful_msg.setText("The entities have been posted to FIWARE")

@@ -22,6 +22,7 @@ class FiwareConfigDialog(QtWidgets.QDialog):
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.ui.line_edit_name.setText("My Bes")
         self.ui.line_edit_url.setText("http://localhost")
+        self.ui.line_edit_fiware_service.setText("openiot")
         self.setup_time_zones()
 
         self.ui.button_ok.clicked.connect(self.push_to_fiware)
@@ -35,7 +36,7 @@ class FiwareConfigDialog(QtWidgets.QDialog):
         # paramters:
         fw_url = "http://localhost"
         fw_apikey = "747400"
-        fw_service = ""
+        fw_service = "openiot"
         fw_service_path = "/American"
         fw_header = FiwareHeader(service = fw_service, service_path = fw_service_path)
 

@@ -15,11 +15,6 @@ class ElectricBoiler(BaseEntity):
         BaseEntity.__init__(self, new_id, new_type)
         ElectricBoiler.entity_count += 1
 
-
-    def __del__(self):
-        ElectricBoiler.entity_count -= 1
-
-
     @staticmethod
     def get_entity_count():
         return ElectricBoiler.entity_count

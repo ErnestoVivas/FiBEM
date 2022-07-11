@@ -55,8 +55,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.list_widget_entities.clear()
         self.ui.list_widget_relationships.clear()
         for entity in self.building_energy_system.entities:
-            entity_data = [entity.id, entity.type]
-            entity_data_str = "{: <70} {: <20}".format(*entity_data)
+            entity_data = [entity.base_attributes["id"], entity.base_attributes["type"]]
+            entity_data_str = "{: <80} {: <20}".format(*entity_data)
             self.ui.list_widget_entities.addItem(QListWidgetItem(entity_data_str))
 
 
@@ -92,6 +92,6 @@ class MainWindow(QtWidgets.QMainWindow):
             self.display_bes()
 
     def push_to_fiware(self):
-        self.fiware_config_dialog = FiwareConfigDialog()
+        self.fiware_config_dialog = FiwareConfigDialog(self.building_energy_system)
         self.fiware_config_dialog.setWindowModality(Qt.ApplicationModal)
         self.fiware_config_dialog.show()

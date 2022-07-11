@@ -13,7 +13,7 @@ from filip.models.ngsi_v2.iot import ServiceGroup
 
 class FiwareConfigDialog(QtWidgets.QDialog):
 
-    def __init__(self):
+    def __init__(self, new_bes):
 
         # setup window
         super().__init__()
@@ -24,6 +24,10 @@ class FiwareConfigDialog(QtWidgets.QDialog):
         self.ui.line_edit_url.setText("http://localhost")
         self.ui.line_edit_fiware_service.setText("openiot")
         self.setup_time_zones()
+
+        # set building energy system
+        self.building_energy_system = new_bes
+
 
         self.ui.button_ok.clicked.connect(self.push_to_fiware)
         self.ui.button_cancel.clicked.connect(self.cancel_push_to_fiware)
@@ -50,7 +54,13 @@ class FiwareConfigDialog(QtWidgets.QDialog):
         # post the entity
         try:
             with ContextBrokerClient(url = fw_url + ":1026", fiware_header = fw_header) as client:
-                client.post_entity(entity = fw_entity)
+                for entity in self.building_energy_system.entities:
+                    client.post_entity(entity = ContextEntity(**(entity.base_attributes)))
+            post_successful_msg = QMessageBox()
+            post_successful_msg.setIcon(QMessageBox.Information)
+            post_successful_msg.setText("The entities have been posted to FIWARE")
+            post_successful_msg.setWindowTitle("Post successul")
+            post_successful_msg.exec_()
         except:
             fiware_connection_error_msg = QMessageBox()
             fiware_connection_error_msg.setIcon(QMessageBox.Critical)
@@ -59,6 +69,7 @@ class FiwareConfigDialog(QtWidgets.QDialog):
             fiware_connection_error_msg.setWindowTitle("Error")
             fiware_connection_error_msg.exec_()
 
+        self.close()
         # Instantiate a simple device
 
 

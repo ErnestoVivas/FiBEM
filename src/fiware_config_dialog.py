@@ -40,7 +40,7 @@ class FiwareConfigDialog(QtWidgets.QDialog):
 
         # paramters:
         fw_url = "http://localhost"
-        fw_apikey = "747400"
+        fw_apikey = "747200"
         fw_service = "openiot"
         fw_service_path = "/TACA"
         fw_header = FiwareHeader(service = fw_service, service_path = fw_service_path)

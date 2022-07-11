@@ -27,7 +27,7 @@ class ElectricBoiler(BaseEntity):
         self.devices.append(
             {
                 "device_id": "Heating_Coil",
-                "entity_name": self.base_attributes[id] + ":Heating_Coil",
+                "entity_name": self.base_attributes["id"] + ":Heating_Coil",
                 "entity_type": "brick:Electrical_Power_Sensor",
                 "timezone": "Europe/Berlin",     # default value, can be set by user
                 "protocol": "IoTA-JSON",

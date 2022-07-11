@@ -39,7 +39,7 @@ class ElectricBoiler(BaseEntity):
                     {
                         "name": "refEntity",
                         "type": "Relationship",
-                        "value": self.base_attributes[id]
+                        "value": self.base_attributes["id"]
                     }
                 ]
             }

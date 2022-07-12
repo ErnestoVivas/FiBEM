@@ -24,24 +24,26 @@ class ElectricBoiler(BaseEntity):
 
 
     def setup_devices(self):
-        self.devices.append(
-            {
+        Heating_Coil_Dev = {
                 "device_id": "Heating_Coil",
                 "entity_name": self.base_attributes["id"] + ":Heating_Coil",
                 "entity_type": "brick:Electrical_Power_Sensor",
                 "timezone": "Europe/Berlin",     # default value, can be set by user
                 "protocol": "IoTA-JSON",
-                "transport": "MQTT",
-                #"attributes": [
-                #    power_attr
-                #],
-                #"static_attributes": [
-                #    {
-                #        "name": "refEntity",
-                #        "type": "Relationship",
-                #        "value": self.base_attributes["id"]
-                #    }
-                #]
-            }
-        )
+                "transport": "MQTT"
+        }
+        self.devices.append(Heating_Coil_Dev)
+
+
+        #"attributes": [
+        #    power_attr
+        #],
+        #"static_attributes": [
+        #    {
+        #        "name": "refEntity",
+        #        "type": "Relationship",
+        #        "value": self.base_attributes["id"]
+        #    }
+        #]
+
         # devices of an electric boiler: power in, heat out, efficiency

@@ -2,12 +2,6 @@ from .base_entity import BaseEntity
 from .device_attributes import power_attr
 
 
-electric_boiler_type = "brick:Electric_Boiler"
-electric_boiler_definition = ("A closed, pressure vessel that uses electricity"
-                              " for heating water or other fluids to supply"
-                              " steam or hot water for heating, humidification,"
-                              " or other applications.")
-
 class ElectricBoiler(BaseEntity):
 
     entity_count = 0

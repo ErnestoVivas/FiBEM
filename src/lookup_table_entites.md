@@ -7,4 +7,8 @@ represented by following indices:
 | --- | --- |
 | 0 | Heat_Pump |
 | 1 | Electric_Boiler |
-| 2 | Weather_Condition |
+| 2 | Natural_Gas_Boiler |
+| 3 | Pump |
+| 4 | Radiator |
+| 5 | Room |
+| 6 | Building |

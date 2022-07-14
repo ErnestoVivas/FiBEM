@@ -66,7 +66,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def add_entity(self):
-        self.add_entity_dialog = AddEntityDialog(self.building_energy_system.id)
+        self.add_entity_dialog = AddEntityDialog(self.building_energy_system)
         self.add_entity_dialog.chosen_entity.connect(self.add_entity_to_bes)
         self.add_entity_dialog.setWindowModality(Qt.ApplicationModal)
         self.add_entity_dialog.show()

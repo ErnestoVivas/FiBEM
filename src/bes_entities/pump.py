@@ -1,13 +1,13 @@
 from .base_entity import BaseEntity
 
-class HeatPump(BaseEntity):
+class Pump(BaseEntity):
 
     entity_count = 0
 
     def __init__(self, new_id, new_type):
         BaseEntity.__init__(self, new_id, new_type)
-        HeatPump.entity_count += 1
+        Pump.entity_count += 1
 
     @staticmethod
     def get_entity_count():
-        return HeatPump.entity_count
+        return Pump.entity_count

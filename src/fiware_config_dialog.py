@@ -53,10 +53,6 @@ class FiwareConfigDialog(QtWidgets.QDialog):
                 for entity in self.building_energy_system.entities:
                     client.post_entity(entity = ContextEntity(**(entity.base_attributes)))
 
-            #for entity in self.building_energy_system.entities:
-            #    for device in entity.devices:
-            #        print(device["entity_name"])
-
             # post devices
             with IoTAClient(url = fw_url + ":4041", fiware_header = fw_header) as iota_client:
                 for entity in self.building_energy_system.entities:

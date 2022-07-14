@@ -55,8 +55,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.list_widget_entities.clear()
         self.ui.list_widget_relationships.clear()
         for entity in self.building_energy_system.entities:
-            entity_data = [entity.base_attributes["id"], entity.base_attributes["type"]]
-            entity_data_str = "{: <80} {: <20}".format(*entity_data)
+            entity_data = [entity.base_attributes["type"], entity.base_attributes["id"]]
+            entity_data_str = "{: <24} {: <20}".format(*entity_data)
             self.ui.list_widget_entities.addItem(QListWidgetItem(entity_data_str))
 
 
@@ -78,7 +78,6 @@ class MainWindow(QtWidgets.QMainWindow):
         # stored on the 'building_energy_system' object
 
         current_entity_index = self.ui.list_widget_entities.currentRow()
-        print(current_entity_index)
         if current_entity_index < 0:
             no_item_selected_message_box = QMessageBox()
             no_item_selected_message_box.setIcon(QMessageBox.Warning)

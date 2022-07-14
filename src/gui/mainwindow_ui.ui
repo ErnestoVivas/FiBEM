@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1132</width>
-    <height>579</height>
+    <width>1188</width>
+    <height>618</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -97,9 +97,14 @@
      <widget class="QListWidget" name="list_widget_entities">
       <property name="minimumSize">
        <size>
-        <width>420</width>
+        <width>450</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Cascadia Mono</family>
+       </font>
       </property>
      </widget>
     </item>
@@ -107,9 +112,14 @@
      <widget class="QListWidget" name="list_widget_relationships">
       <property name="minimumSize">
        <size>
-        <width>420</width>
+        <width>450</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Cascadia Mono</family>
+       </font>
       </property>
      </widget>
     </item>
@@ -204,7 +214,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1132</width>
+     <width>1188</width>
      <height>21</height>
     </rect>
    </property>

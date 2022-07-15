@@ -14,7 +14,7 @@ represented by following indices:
 | 6 | PVT_Panel |
 | 7 | Solar_Thermal_Collector |
 | 8 | Water_Heater |
-| 9 | Hot_Water_Loop |
+| 9 | Water_Distribution |
 | 10 | Valve |
 | 11 | Pump |
 | 12 | Radiator |

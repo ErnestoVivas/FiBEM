@@ -101,7 +101,7 @@ water_system_definition = ("The equipment, devices and conduits that handle the 
                            "production and distribution of water in a building.")
 
 room_type = "brick:Room"
-room_definition = "Base class for all more specific room types"
+room_definition = "Base class for all more specific room types."
 
 building_type = "brick:Building"
 building_definition = ("An independent unit of the built environment with a "

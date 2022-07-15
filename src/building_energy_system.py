@@ -7,8 +7,18 @@ from bes_entities import heat_exchanger
 from bes_entities import pv_panel
 from bes_entities import pvt_panel
 from bes_entities import solar_thermal_collector
+from bes_entities import water_heater
+from bes_entities import water_distribution
+from bes_entities import valve
 from bes_entities import pump
 from bes_entities import radiator
+from bes_entities import battery
+from bes_entities import hvac_system
+from bes_entities import electrical_system
+from bes_entities import water_system
+from bes_entities import room
+from bes_entities import building
+from bes_entities import outside
 
 
 class BuildingEnergySystem():
@@ -36,10 +46,30 @@ class BuildingEnergySystem():
             self.entities.append(pvt_panel.PVTPanel(entity_id, "PVT_Panel"))
         elif chosen_entity == 7:
             self.entities.append(solar_thermal_collector.SolarThermalCollector(entity_id, "Solar_Thermal_Collector"))
+        elif chosen_entity == 8:
+            self.entities.append(water_heater.WaterHeater(entity_id, "Water_Heater"))
+        elif chosen_entity == 9:
+            self.entities.append(water_distribution.WaterDistribution(entity_id, "Water_Distribution"))
+        elif chosen_entity == 10:
+            self.entities.append(valve.Valve(entity_id, "Valve"))
         elif chosen_entity == 11:
             self.entities.append(pump.Pump(entity_id, "Pump"))
         elif chosen_entity == 12:
             self.entities.append(radiator.Radiator(entity_id, "Radiator"))
+        elif chosen_entity == 13:
+            self.entities.append(battery.Battery(entity_id, "Battery"))
+        elif chosen_entity == 14:
+            self.entities.append(hvac_system.HVACSystem(entity_id, "HVAC_System"))
+        elif chosen_entity == 15:
+            self.entities.append(electrical_system.ElectricalSystem(entity_id, "Electrical_System"))
+        elif chosen_entity == 16:
+            self.entities.append(water_system.WaterSystem(entity_id, "Water_System"))
+        elif chosen_entity == 17:
+            self.entities.append(room.Room(entity_id, "Room"))
+        elif chosen_entity == 18:
+            self.entities.append(building.Building(entity_id, "Building"))
+        elif chosen_entity == 19:
+            self.entities.append(outside.Outside(entity_id, "Outside"))
 
 
     def delete_entity(self, entity_index):
@@ -67,8 +97,28 @@ class BuildingEnergySystem():
             specific_entity_count = pvt_panel.PVTPanel.get_entity_count()
         elif entity_type == 7:
             specific_entity_count = solar_thermal_collector.SolarThermalCollector.get_entity_count()
+        elif entity_type == 8:
+            specific_entity_count = water_heater.WaterHeater.get_entity_count()
+        elif entity_type == 9:
+            specific_entity_count = water_distribution.WaterDistribution.get_entity_count()
+        elif entity_type == 10:
+            specific_entity_count = valve.Valve.get_entity_count()
         elif entity_type == 11:
             specific_entity_count = pump.Pump.get_entity_count()
         elif entity_type == 12:
             specific_entity_count = radiator.Radiator.get_entity_count()
+        elif entity_type == 13:
+            specific_entity_count = battery.Battery.get_entity_count()
+        elif entity_type == 14:
+            specific_entity_count = hvac_system.HVACSystem.get_entity_count()
+        elif entity_type == 15:
+            specific_entity_count = electrical_system.ElectricalSystem.get_entity_count()
+        elif entity_type == 16:
+            specific_entity_count = water_system.WaterSystem.get_entity_count()
+        elif entity_type == 17:
+            specific_entity_count = room.Room.get_entity_count()
+        elif entity_type == 18:
+            specific_entity_count = building.Building.get_entity_count()
+        elif entity_type == 19:
+            specific_entity_count = outside.Outside.get_entity_count()
         return specific_entity_count

@@ -16,7 +16,7 @@ class BaseEntity():
                     "value": "Site"
                 },
                 "definition": {
-                    "value": ontolgy_strings.site_definition
+                    "value": ontology_strings.site_definition
                 }
             }
         }

@@ -19,7 +19,7 @@ ontology_prefixes = ("@prefix brick: <https://brickschema.org/schema/Brick#> .\n
 heat_pump_type = "ebc:Heat_Pump"
 heat_pump_definition = ("A device that transfers heat between spaces with the "
                         "use of electrical energy, based on the refrigeration "
-                        "(vapor-compression) cycle.")
+                        "[vapor-compression] cycle.")
 
 electric_boiler_type = "brick:Electric_Boiler"
 electric_boiler_definition = ("A closed, pressure vessel that uses electricity"
@@ -52,7 +52,7 @@ heat_exchanger_definition = ("A heat exchanger is a piece of equipment built "
                              "for efficient heat transfer from one medium to "
                              "another. The media may be separated by a solid "
                              "wall to prevent mixing or they may be in direct "
-                             "contact (BEDES).")
+                             "contact [BEDES].")
 
 pv_panel_type = "brick:PV_Panel"
 pv_panel_definition = ("An integrated assembly of interconnected photovoltaic "
@@ -75,7 +75,7 @@ water_heater_definition = ("An apparatus for heating and usually storing hot wat
 water_distribution_type = "brick:Water_Distribution"
 water_distribution_definition = ("Utilize a water distribution source to "
                                  "represent how water is distributed across "
-                                 "multiple destinations (pipes).")
+                                 "multiple destinations [pipes].")
 
 valve_type = "brick:Valve"
 valve_definition = ("A device that regulates, directs or controls the flow of "

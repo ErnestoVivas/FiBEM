@@ -1,5 +1,5 @@
 from .base_entity import BaseEntity
-from bes_entitise import ontology_strings
+from bes_entities import ontology_strings
 
 
 class Radiator(BaseEntity):

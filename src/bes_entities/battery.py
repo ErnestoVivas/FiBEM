@@ -1,5 +1,5 @@
 from .base_entity import BaseEntity
-import ontology_strings
+from bes_entities import ontology_strings
 
 class Battery(BaseEntity):
 

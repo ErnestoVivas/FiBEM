@@ -11,14 +11,8 @@ class BaseEntity():
         self.base_attributes = {
             "id": new_id,
             "type": new_type,
-            "metadata": {
-                "ontologyType": {
-                    "value": "Site"
-                },
-                "definition": {
-                    "value": ontology_strings.site_definition
-                }
-            }
+            "ontology": "brick",
+            "definition": ontology_strings.site_definition
         }
         self.devices = []
 

@@ -3,7 +3,7 @@
     functions that are part of all entities
 '''
 
-import ontology_strings
+from bes_entities import ontology_strings
 
 class BaseEntity():
 

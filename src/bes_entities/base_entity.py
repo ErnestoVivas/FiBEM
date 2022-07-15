@@ -11,8 +11,14 @@ class BaseEntity():
         self.base_attributes = {
             "id": new_id,
             "type": new_type,
-            "ontology": "brick",
-            "definition": "sample"
+            "ontology": {
+                "value": "brick",
+                "type": "text",
+            },
+            "definition": {
+                "value": "sample",
+                "type": "text",
+            }
         }
         self.devices = []
 

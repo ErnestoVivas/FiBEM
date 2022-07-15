@@ -12,7 +12,7 @@ class BaseEntity():
             "id": new_id,
             "type": new_type,
             "ontology": "brick",
-            "definition": ontology_strings.site_definition
+            "definition": "sample"
         }
         self.devices = []
 

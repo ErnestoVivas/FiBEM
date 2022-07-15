@@ -1,6 +1,6 @@
 from .base_entity import BaseEntity
 from .device_attributes import power_attr
-
+from bes_entities import ontology_strings
 
 class ElectricBoiler(BaseEntity):
 
@@ -8,6 +8,7 @@ class ElectricBoiler(BaseEntity):
 
     def __init__(self, new_id, new_type):
         BaseEntity.__init__(self, new_id, new_type)
+        self.base_attributes["definition"]["value"] = ontology_strings.electric_boiler_definition
         self.setup_devices()
         ElectricBoiler.entity_count += 1
 

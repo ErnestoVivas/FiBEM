@@ -12,7 +12,7 @@ class BaseEntity():
             "id": new_id,
             "type": new_type,
             "ontology": {
-                "value": "brick",
+                "value": "Brick",
                 "type": "text",
             },
             "definition": {

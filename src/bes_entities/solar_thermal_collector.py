@@ -1,4 +1,5 @@
 from .base_entity import BaseEntity
+from bes_entities import ontology_strings
 
 
 class SolarThermalCollector(BaseEntity):
@@ -7,6 +8,7 @@ class SolarThermalCollector(BaseEntity):
 
     def __init__(self, new_id, new_type):
         BaseEntity.__init__(self, new_id, new_type)
+        self.base_attributes["definition"]["value"] = ontology_strings.solar_thermal_collector_definition
         SolarThermalCollector.entity_count += 1
 
     @staticmethod

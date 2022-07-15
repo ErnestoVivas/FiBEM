@@ -1,4 +1,5 @@
 from .base_entity import BaseEntity
+from bes_entitise import ontology_strings
 
 
 class Radiator(BaseEntity):
@@ -7,6 +8,7 @@ class Radiator(BaseEntity):
 
     def __init__(self, new_id, new_type):
         BaseEntity.__init__(self, new_id, new_type)
+        self.base_attributes["definition"]["value"] = ontology_strings.radiator_definition
         Radiator.entity_count += 1
 
     @staticmethod

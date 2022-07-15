@@ -1,4 +1,5 @@
 from .base_entity import BaseEntity
+from bes_entities import ontology_strings
 
 
 class PVTPanel(BaseEntity):
@@ -7,6 +8,7 @@ class PVTPanel(BaseEntity):
 
     def __init__(self, new_id, new_type):
         BaseEntity.__init__(self, new_id, new_type)
+        self.base_attributes["definition"]["value"] = ontology_strings.pvt_panel_definition
         PVTPanel.entity_count += 1
 
     @staticmethod

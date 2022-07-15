@@ -1,4 +1,6 @@
 from .base_entity import BaseEntity
+from bes_entities import ontology_strings
+
 
 class Pump(BaseEntity):
 
@@ -6,6 +8,7 @@ class Pump(BaseEntity):
 
     def __init__(self, new_id, new_type):
         BaseEntity.__init__(self, new_id, new_type)
+        self.base_attributes["definition"]["value"] = ontology_strings.pump_definition
         Pump.entity_count += 1
 
     @staticmethod

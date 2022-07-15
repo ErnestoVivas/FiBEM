@@ -116,6 +116,12 @@ outside_type = "brick:Outside"
 outside_definition = ("Entity that describes the weather and outside environment "
                       "of the location of the considered site or building.")
 
+site_type = "brick:Site"
+site_definition = ("A geographic region containing 0 or more buildings. "
+                   "Typically used as the encapsulating location for a "
+                   "collection of Brick entities through the hasSite/isSiteOf "
+                   "relationships.")
+
 entity_strings_by_value = {
     "0": [heat_pump_type, heat_pump_definition],
     "1": [electric_boiler_type, electric_boiler_definition],

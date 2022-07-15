@@ -1,5 +1,5 @@
 from .base_entity import BaseEntity
-from bes_entities import water_distribution
+from bes_entities import ontology_strings
 
 
 class WaterDistribution(BaseEntity):

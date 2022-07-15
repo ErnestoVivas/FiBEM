@@ -16,7 +16,7 @@ class BaseEntity():
                 "type": "text",
             },
             "definition": {
-                "value": "sample",
+                "value": ontology_strings.site_definition,
                 "type": "text",
             }
         }

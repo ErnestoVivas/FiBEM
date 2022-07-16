@@ -1,10 +1,6 @@
 from gui import add_entity_dialog_ui
 
-# from bes_entities import heat_pump_strings
 from building_energy_system import BuildingEnergySystem
-from bes_entities import electric_boiler
-from bes_entities import heat_pump
-from bes_entities import natural_gas_boiler
 from bes_entities import ontology_strings
 
 from PyQt5 import QtCore, QtGui, QtWidgets

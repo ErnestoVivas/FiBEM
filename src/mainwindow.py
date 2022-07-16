@@ -6,8 +6,9 @@
     in the class "building_energy_system" and is an attribute of MainWindow.
 '''
 
-from add_entity_dialog import AddEntityDialog
 from startup_dialog import StartupDialog
+from add_entity_dialog import AddEntityDialog
+from add_relationship_dialog import AddRelationshipDialog
 from fiware_config_dialog import FiwareConfigDialog
 
 from building_energy_system import BuildingEnergySystem
@@ -29,14 +30,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         # sub windows and dialogs
-        self.add_entity_dialog = None
         self.startup_dialog = None
+        self.add_entity_dialog = None
+        self.add_relationship_dialog = None
         self.fiware_config_dialog = None
 
         # connect buttons to their respective functions
         self.ui.button_add_entity.clicked.connect(self.add_entity)
         self.ui.button_delete_entity.clicked.connect(self.delete_entity)
         self.ui.button_push_to_fiware.clicked.connect(self.push_to_fiware)
+        self.ui.button_add_relationship.clicked.connect(self.add_relationship)
 
         # init bes
         self.building_energy_system = None
@@ -89,6 +92,13 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.building_energy_system.delete_entity(current_entity_index)
             self.display_bes()
+
+
+    def add_relationship(self):
+        self.add_relationship_dialog = AddRelationshipDialog(self.building_energy_system)
+        self.add_relationship_dialog.setWindowModality(Qt.ApplicationModal)
+        self.add_relationship_dialog.show()
+
 
     def push_to_fiware(self):
         self.fiware_config_dialog = FiwareConfigDialog(self.building_energy_system)

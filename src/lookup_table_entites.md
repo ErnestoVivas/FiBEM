@@ -1,7 +1,7 @@
 ## Lookup table
 
-To simplify coding and reduce string handling the entity types of the bes are
-represented by following indices:
+To simplify coding and reduce string handling the entity and relationship types
+of the bes are represented by following indices:
 
 | KEY | VALUE |
 | --- | --- |
@@ -25,3 +25,14 @@ represented by following indices:
 | 17 | Room |
 | 18 | Building |
 | 19 | Outside |
+
+| KEY | VALUE |
+| --- | --- |
+| 0 | feeds |
+| 1 | hasLocation |
+| 2 | hasPart |
+| 3 | isFedBy |
+| 4 | isLocationOf |
+| 5 | isPartOf |
+| 6 | isRegulatedBy |
+| 7 | regulates |

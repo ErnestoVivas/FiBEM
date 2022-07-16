@@ -122,6 +122,20 @@ site_definition = ("A geographic region containing 0 or more buildings. "
                    "collection of Brick entities through the hasSite/isSiteOf "
                    "relationships.")
 
+feeds_definition = ("The subject is upstream of the object in the context of "
+                    "some sequential process; some media is passed between them.")
+has_part_definition = ("The subject is composed in part of the entity given "
+                       "by the object.")
+has_location_definition = ("Subject is physically located in the location "
+                           "given by the object.")
+is_fed_by_definition = ("Inverse of the 'feeds' relation.")
+is_location_of_definition = ("Subject is the physical location encapsulating "
+                             "the object.")
+is_part_of_definition = ("Inverse of the 'hasPart' relation.")
+is_regulated_by_definition = ("Inverse of the 'regulates' relation.")
+regulates_definition = ("The subject contributes to or performs the regulation "
+                        "of the substance given by the object.")
+
 entity_strings_by_value = {
     "0": [heat_pump_type, heat_pump_definition],
     "1": [electric_boiler_type, electric_boiler_definition],
@@ -143,6 +157,17 @@ entity_strings_by_value = {
     "17": [room_type, room_definition],
     "18": [building_type, building_definition],
     "19": [outside_type, outside_definition]
+}
+
+relationship_definition_by_value = {
+    "0": feeds_definition,
+    "1": has_location_definition,
+    "2": has_part_definition,
+    "3": is_fed_by_definition,
+    "4": is_location_of_definition,
+    "5": is_part_of_definition,
+    "6": is_regulated_by_definition,
+    "7": regulates_definition
 }
 
 

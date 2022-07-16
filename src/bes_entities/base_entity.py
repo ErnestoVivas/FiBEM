@@ -20,8 +20,14 @@ class BaseEntity():
                 "type": "text",
             }
         }
+        self.add_relationship("feeds", "urn:ngsi_ld:001")
+        self.relationships = []
         self.devices = []
 
-
-        #self.id: str = new_id
-        #self.type: str = new_type   # if used is root, type is brick:Site
+    def add_relationship(self, relationship_type, ref_entity):
+        self.base_attributes.update({
+            relationship_type: {
+                "type": "Relationship",
+                "value": ref_entity
+            }
+        })

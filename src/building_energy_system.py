@@ -78,7 +78,8 @@ class BuildingEnergySystem():
 
 
     def add_relationship(self, first_entity, ref_entity, relationship_type):
-        self.entities[first_entity].add_relationship(ref_entity, relationship_type)
+        ref_entity_id = self.entities[ref_entity].base_attributes["id"]
+        self.entities[first_entity].add_relationship(ref_entity_id, relationship_type)
         self.relationships.append({
             "first_entity": first_entity,
             "ref_entity": ref_entity,

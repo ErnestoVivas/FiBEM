@@ -24,6 +24,7 @@ class BaseEntity():
         self.devices = []
         self.set_short_id(new_id)
 
+
     def set_short_id(self, new_id):
         splitted_id = new_id.split(":")
         if len(splitted_id) >= 2:

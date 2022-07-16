@@ -1,12 +1,15 @@
 from gui import add_relationship_dialog_ui
 
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import pyqtSignal
 
 from building_energy_system import BuildingEnergySystem
 from bes_entities import ontology_strings
 
 
 class AddRelationshipDialog(QtWidgets.QDialog):
+
+    new_relationship = pyqtSignal(int, int, str)
 
     def __init__(self, curr_bes):
         super().__init__()
@@ -24,6 +27,8 @@ class AddRelationshipDialog(QtWidgets.QDialog):
 
 
     def setup_entities_combo_boxes(self):
+
+        # order of displayed entities is the same as in the bes object
         for entity in self.current_bes.entities:
             self.ui.combo_box_first_entity.addItem(entity.base_attributes["id"])
             self.ui.combo_box_ref_entity.addItem(entity.base_attributes["id"])
@@ -47,7 +52,13 @@ class AddRelationshipDialog(QtWidgets.QDialog):
         relationship_definition = ontology_strings.relationship_definition_by_value[str(current_relationship)]
         self.ui.text_edit_definition.setText(relationship_definition)
 
+
     def add_relationship(self):
+        entity_first = self.ui.combo_box_first_entity.currentIndex()
+        entity_second = self.ui.combo_box_ref_entity.currentIndex()
+        relationship_type = self.ui.combo_box_relationship_type.currentText()
+        if (entity_first != entity_second) and (entity_first >= 0) and (entity_second >= 0):
+            self.new_relationship.emit(entity_first, entity_second, relationship_type)
         self.close()
 
 

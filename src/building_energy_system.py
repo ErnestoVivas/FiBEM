@@ -26,6 +26,7 @@ class BuildingEnergySystem():
     def __init__(self, bes_id):
         self.id = bes_id
         self.entities = []
+        self.relationships = []
         self.entities.append(base_entity.BaseEntity(bes_id, "Site"))
 
 
@@ -75,6 +76,14 @@ class BuildingEnergySystem():
     def delete_entity(self, entity_index):
         del self.entities[entity_index]
 
+
+    def add_relationship(self, first_entity, ref_entity, relationship_type):
+        self.entities[first_entity].add_relationship(ref_entity, relationship_type)
+        self.relationships.append({
+            "first_entity": first_entity,
+            "ref_entity": ref_entity,
+            "relationship_type": relationship_type
+        })
 
     def get_entity_count(self, entity_type):
         # this function returns the total amount of entites that have been

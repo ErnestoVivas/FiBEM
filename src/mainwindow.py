@@ -61,7 +61,12 @@ class MainWindow(QtWidgets.QMainWindow):
             entity_data = [entity.base_attributes["type"], entity.base_attributes["id"]]
             entity_data_str = "{: <24} {: <20}".format(*entity_data)
             self.ui.list_widget_entities.addItem(QListWidgetItem(entity_data_str))
-
+        for relationship in self.building_energy_system.relationships:
+            first_entity = self.building_energy_system.entities[relationship["first_entity"]].short_id
+            ref_entity = self.building_energy_system.entities[relationship["ref_entity"]].short_id
+            rel_type = relationship["relationship_type"]
+            rel_str = first_entity + " " + rel_type + " " + ref_entity
+            self.ui.list_widget_relationships.addItem(QListWidgetItem(rel_str))
 
     def add_entity_to_bes(self, chosen_entity, entity_id):
         self.building_energy_system.add_entity(chosen_entity, entity_id)
@@ -94,8 +99,14 @@ class MainWindow(QtWidgets.QMainWindow):
             self.display_bes()
 
 
+    def add_relationship_to_bes(self, first_entity, ref_entity, relationship_type):
+        self.building_energy_system.add_relationship(first_entity, ref_entity, relationship_type)
+        self.display_bes()
+
+
     def add_relationship(self):
         self.add_relationship_dialog = AddRelationshipDialog(self.building_energy_system)
+        self.add_relationship_dialog.new_relationship.connect(self.add_relationship_to_bes)
         self.add_relationship_dialog.setWindowModality(Qt.ApplicationModal)
         self.add_relationship_dialog.show()
 

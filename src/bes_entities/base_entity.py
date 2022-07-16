@@ -8,6 +8,7 @@ from bes_entities import ontology_strings
 class BaseEntity():
 
     def __init__(self, new_id, new_type):
+        self.short_id = ""
         self.base_attributes = {
             "id": new_id,
             "type": new_type,
@@ -20,11 +21,21 @@ class BaseEntity():
                 "type": "text",
             }
         }
-        self.add_relationship("feeds", "urn:ngsi_ld:001")
-        self.relationships = []
         self.devices = []
+        self.set_short_id(new_id)
 
-    def add_relationship(self, relationship_type, ref_entity):
+    def set_short_id(self, new_id):
+        splitted_id = new_id.split(":")
+        if len(splitted_id) >= 2:
+            if splitted_id[-1].isnumeric():
+                self.short_id = splitted_id[-2] + ":" + splitted_id[-1]
+            else:
+                self.short_id = splitted_id[-1]
+        else:
+            self.short_id = new_id
+
+
+    def add_relationship(self, ref_entity, relationship_type):
         self.base_attributes.update({
             relationship_type: {
                 "type": "Relationship",

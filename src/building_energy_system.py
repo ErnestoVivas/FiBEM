@@ -74,7 +74,50 @@ class BuildingEnergySystem():
 
 
     def delete_entity(self, entity_index):
+        deleted_entity_id = self.entities[entity_index].base_attributes["id"]
+
+        # first: all references to the deleted entity must be deleted
+        for entity in self.entities:
+            key_to_delete = ""
+            for key in entity.base_attributes:
+                if ("value" in entity.base_attributes[key]) and ("value" == deleted_entity_id):
+                    key_to_delete = key
+                    break
+            if key_to_delete:
+                del entity.base_attributes[key_to_delete]
+
+        # Delete all entries in global relationship list that hold the entity
+        relationship_indices_to_delete = []
+        i = 0
+        for relationship in self.relationships:
+            first_entity = relationship["first_entity"]
+            ref_entity = relationship["ref_entity"]
+            if(first_entity == entity_index) or (ref_entity == entity_index):
+                relationship_indices_to_delete.append(i)
+            i += 1
+        for index in reversed(relationship_indices_to_delete):
+            del self.relationships[index]
+
+        # entities indices after deleted entity will shrink by 1: adjust relationships list
+        for relationship in self.relationships:
+            if relationship["first_entity"] > entity_index:
+                relationship["first_entity"] -= 1
+            if relationship["ref_entity"] > entity_index:
+                relationship["ref_entity"] -= 1
+
+        # finally: remove entity
         del self.entities[entity_index]
+
+
+    def delete_relationship(self, relationship_index):
+
+        # delete relationship attribute from correspondent entity
+        first_entity = self.relationships[relationship_index]["first_entity"]
+        relationship_type = self.relationships[relationship_index]["relationship_type"]
+        del self.entities[first_entity].base_attributes[relationship_type]
+        
+        # remove relationship from global relationship list
+        del self.relationships[relationship_index]
 
 
     def add_relationship(self, first_entity, ref_entity, relationship_type):

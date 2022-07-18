@@ -1,9 +1,12 @@
+import random
+import string
+import json
+from pathlib import Path
+
 from gui import fiware_config_dialog_ui
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-
-import json
 
 from filip.models.ngsi_v2.context import ContextEntity
 from filip.models.ngsi_v2.iot import Device
@@ -22,17 +25,28 @@ class FiwareConfigDialog(QtWidgets.QDialog):
         self.ui = fiware_config_dialog_ui.Ui_FiwareConfigDialog()
         self.ui.setupUi(self)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.ui.line_edit_name.setText("My Bes")
+
+        # set values in line edits
+        bes_short_id = new_bes.id.split(":")[-1]
+        random_api_key = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+        home_dir = Path.home()
+        default_mqtt_topics_path = Path.joinpath(home_dir, str(bes_short_id + "_mqtt_topics.csv"))
+        default_grafana_config_path = Path.joinpath(home_dir, str(bes_short_id + "_grafana.json"))
         self.ui.line_edit_url.setText("http://localhost")
         self.ui.line_edit_fiware_service.setText("openiot")
+        self.ui.line_edit_fiware_service_path.setText("/" + bes_short_id)
+        self.ui.line_edit_api_key.setText(random_api_key)
+        self.ui.line_edit_mqtt_topics_file.setText(str(default_mqtt_topics_path))
+        self.ui.line_edit_grafana_config_file.setText(str(default_grafana_config_path))
         self.setup_time_zones()
 
         # set building energy system
         self.building_energy_system = new_bes
 
-
+        # connect button functions
         self.ui.button_ok.clicked.connect(self.push_to_fiware)
         self.ui.button_cancel.clicked.connect(self.cancel_push_to_fiware)
+        self.ui.button_random_api_key.clicked.connect(self.generate_random_api_key)
 
 
     def push_to_fiware(self):
@@ -40,10 +54,10 @@ class FiwareConfigDialog(QtWidgets.QDialog):
         # right now: testing
 
         # paramters:
-        fw_url = "http://localhost"
-        fw_apikey = "747200"
-        fw_service = "openiot"
-        fw_service_path = "/TACA"
+        fw_url = self.ui.line_edit_url.text()
+        fw_service = self.ui.line_edit_fiware_service.text()
+        fw_service_path = self.ui.line_edit_fiware_service_path.text()
+        fw_apikey = self.ui.line_edit_api_key.text()
         fw_header = FiwareHeader(service = fw_service, service_path = fw_service_path)
 
         # post the entity
@@ -75,8 +89,11 @@ class FiwareConfigDialog(QtWidgets.QDialog):
             fiware_connection_error_msg.exec_()
 
         self.close()
-        # Instantiate a simple device
 
+
+    def generate_random_api_key(self):
+        random_api_key = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+        self.ui.line_edit_api_key.setText(random_api_key)
 
 
     def cancel_push_to_fiware(self):

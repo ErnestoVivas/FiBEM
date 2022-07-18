@@ -39,8 +39,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # connect buttons to their respective functions
         self.ui.button_add_entity.clicked.connect(self.add_entity)
         self.ui.button_delete_entity.clicked.connect(self.delete_entity)
-        self.ui.button_push_to_fiware.clicked.connect(self.push_to_fiware)
         self.ui.button_add_relationship.clicked.connect(self.add_relationship)
+        self.ui.button_delete_relationship.clicked.connect(self.delete_relationship)
+        self.ui.button_push_to_fiware.clicked.connect(self.push_to_fiware)
 
         # init bes
         self.building_energy_system = None
@@ -90,13 +91,28 @@ class MainWindow(QtWidgets.QMainWindow):
         if current_entity_index < 0:
             no_item_selected_message_box = QMessageBox()
             no_item_selected_message_box.setIcon(QMessageBox.Warning)
-            no_entities_message_box.setText("Can not delete entity: No entity has been selected.")
-            no_entities_message_box.setWindowTitle("No entity selected")
-            no_entities_message_box.setStandardButtons(QMessageBox.Ok)
-            answer = no_entities_message_box.exec()
+            no_item_selected_message_box.setText("Can not delete entity: No entity has been selected.")
+            no_item_selected_message_box.setWindowTitle("No entity selected")
+            no_item_selected_message_box.setStandardButtons(QMessageBox.Ok)
+            answer = no_item_selected_message_box.exec()
             return
         else:
-            self.building_energy_system.delete_entity(current_entity_index)
+            self.building_energy_system.delete_entity(current_entity_index)     # deletes all connected relationships too
+            self.display_bes()
+
+
+    def delete_relationship(self):
+        current_relationship_index = self.ui.list_widget_relationships.currentRow()
+        if current_relationship_index < 0:
+            no_item_selected_message_box = QMessageBox()
+            no_item_selected_message_box.setIcon(QMessageBox.Warning)
+            no_item_selected_message_box.setText("Can not delete relationship: No relationship has been selected.")
+            no_item_selected_message_box.setWindowTitle("No relationship selected")
+            no_item_selected_message_box.setStandardButtons(QMessageBox.Ok)
+            answer = no_item_selected_message_box.exec()
+            return
+        else:
+            self.building_energy_system.delete_relationship(current_relationship_index)
             self.display_bes()
 
 

@@ -8,7 +8,7 @@ from bes_entities import ontology_strings
 class BaseEntity():
 
     def __init__(self, new_id, new_type):
-        self.short_id = ""
+        self.short_id = ""                  # for display purposes
         self.base_attributes = {
             "id": new_id,
             "type": new_type,
@@ -37,6 +37,10 @@ class BaseEntity():
 
 
     def add_relationship(self, ref_entity, relationship_type):
+
+        '''
+        # one to many relationship not possible using the same key under current
+        # architecture of fiware; instead instantiate many to one relationships
         if relationship_type not in self.base_attributes:
             self.base_attributes[relationship_type] = {
                 "type": "Relationship",
@@ -54,10 +58,10 @@ class BaseEntity():
                     "value": ref_entity
                 }
             ]
-
-        #self.base_attributes.update({
-        #    relationship_type: {
-        #        "type": "Relationship",
-        #        "value": ref_entity
-        #    }
-        #})
+        '''
+        self.base_attributes.update({
+            relationship_type: {
+                "type": "Relationship",
+                "value": ref_entity
+            }
+        })

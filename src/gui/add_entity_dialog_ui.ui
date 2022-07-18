@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>468</width>
+    <width>478</width>
     <height>262</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>468</width>
+    <width>478</width>
     <height>262</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>468</width>
+    <width>478</width>
     <height>262</height>
    </size>
   </property>
@@ -70,7 +70,7 @@
   <widget class="QComboBox" name="combo_box_choose_entity">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>100</x>
      <y>40</y>
      <width>361</width>
      <height>21</height>
@@ -80,7 +80,7 @@
   <widget class="QLineEdit" name="line_edit_set_id">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>100</x>
      <y>70</y>
      <width>361</width>
      <height>21</height>
@@ -90,7 +90,7 @@
   <widget class="QLineEdit" name="line_edit_brick_type">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>100</x>
      <y>100</y>
      <width>361</width>
      <height>21</height>
@@ -112,7 +112,7 @@
   <widget class="QPlainTextEdit" name="plain_text_edit_brick_definition">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>100</x>
      <y>130</y>
      <width>361</width>
      <height>81</height>
@@ -141,7 +141,7 @@
   <widget class="QPushButton" name="button_add_entity">
    <property name="geometry">
     <rect>
-     <x>295</x>
+     <x>305</x>
      <y>220</y>
      <width>75</width>
      <height>23</height>
@@ -154,7 +154,7 @@
   <widget class="QPushButton" name="button_cancel">
    <property name="geometry">
     <rect>
-     <x>375</x>
+     <x>385</x>
      <y>220</y>
      <width>75</width>
      <height>23</height>
@@ -167,7 +167,7 @@
   <widget class="QComboBox" name="combo_box_choose_group">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>100</x>
      <y>10</y>
      <width>361</width>
      <height>21</height>

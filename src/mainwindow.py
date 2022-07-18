@@ -6,6 +6,8 @@
     in the class "building_energy_system" and is an attribute of MainWindow.
 '''
 
+from sys import platform
+
 from startup_dialog import StartupDialog
 from add_entity_dialog import AddEntityDialog
 from add_relationship_dialog import AddRelationshipDialog
@@ -16,6 +18,7 @@ from building_energy_system import BuildingEnergySystem
 from gui import mainwindow_ui
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QListWidgetItem, QMessageBox
 
@@ -29,6 +32,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
         self.setWindowTitle("FiBEM - The Fiware Building Entities Manager")
+
+        # determine system type (important for fonts...)
+        self.platform = "Windows"
+        if (platform == "linux") or (platform == "linux2"):
+            self.platform == "linux"
+            self.ui.list_widget_entities.setFont(QFont("DejaVu Sans Mono"))
+            self.ui.list_widget_relationships.setFont(QFont("DejaVu Sans Mono"))
 
         # sub windows and dialogs
         self.startup_dialog = None

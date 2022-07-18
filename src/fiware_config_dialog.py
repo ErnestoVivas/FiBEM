@@ -3,6 +3,7 @@ from gui import fiware_config_dialog_ui
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
+import json
 
 from filip.models.ngsi_v2.context import ContextEntity
 from filip.models.ngsi_v2.iot import Device
@@ -51,6 +52,7 @@ class FiwareConfigDialog(QtWidgets.QDialog):
             # post entities
             with ContextBrokerClient(url = fw_url + ":1026", fiware_header = fw_header) as client:
                 for entity in self.building_energy_system.entities:
+                    print(json.dumps(entity.base_attributes, indent=2))
                     client.post_entity(entity = ContextEntity(**(entity.base_attributes)))
 
             # post devices (do this later)

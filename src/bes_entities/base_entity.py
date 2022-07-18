@@ -37,9 +37,27 @@ class BaseEntity():
 
 
     def add_relationship(self, ref_entity, relationship_type):
-        self.base_attributes.update({
-            relationship_type: {
+        if relationship_type not in self.base_attributes:
+            self.base_attributes[relationship_type] = {
                 "type": "Relationship",
                 "value": ref_entity
             }
-        })
+        elif type(self.base_attributes[relationship_type]) == list:
+            self.base_attributes[relationship_type].append({
+                "type": "Relationship",
+                "value": ref_entity
+            })
+        else:
+            self.base_attributes[relationship_type] = [self.base_attributes[relationship_type],
+                {
+                    "type": "Relationship",
+                    "value": ref_entity
+                }
+            ]
+
+        #self.base_attributes.update({
+        #    relationship_type: {
+        #        "type": "Relationship",
+        #        "value": ref_entity
+        #    }
+        #})

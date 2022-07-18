@@ -28,6 +28,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui.setWindowTitle("FiBEM - The Fiware Building Entities Manager")
 
         # sub windows and dialogs
         self.startup_dialog = None

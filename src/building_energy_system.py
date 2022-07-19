@@ -81,7 +81,7 @@ class BuildingEnergySystem():
         for entity in self.entities:
             key_to_delete = ""
             for key in entity.base_attributes:
-                if ("value" in entity.base_attributes[key]) and ("value" == deleted_entity_id):
+                if ("value" in entity.base_attributes[key]) and (entity.base_attributes[key]["value"] == deleted_entity_id):
                     key_to_delete = key
                     break
             if key_to_delete:

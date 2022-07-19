@@ -18,6 +18,12 @@ class ElectricBoiler(BaseEntity):
         return ElectricBoiler.entity_count
 
 
+    def print_ontology_base_attributes(self, ttl_file_text):
+        ttl_file_text = (f'{ttl_file_text}\n\nebc:{self.short_id_ontology} a brick:Electric_Boiler;\n'
+                         f'    skos:definition "{ontology_strings.electric_boiler_definition}"')
+        return ttl_file_text
+
+
     def setup_devices(self):
         Heating_Coil_Dev = {
                 "device_id": "Heating_Coil",

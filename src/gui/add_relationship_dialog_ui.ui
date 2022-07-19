@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>505</width>
+    <width>495</width>
     <height>230</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>505</width>
+    <width>495</width>
     <height>230</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>505</width>
+    <width>495</width>
     <height>230</height>
    </size>
   </property>
@@ -30,7 +30,7 @@
     <rect>
      <x>10</x>
      <y>20</y>
-     <width>91</width>
+     <width>101</width>
      <height>21</height>
     </rect>
    </property>
@@ -43,7 +43,7 @@
     <rect>
      <x>10</x>
      <y>80</y>
-     <width>91</width>
+     <width>111</width>
      <height>21</height>
     </rect>
    </property>
@@ -56,7 +56,7 @@
     <rect>
      <x>10</x>
      <y>50</y>
-     <width>91</width>
+     <width>101</width>
      <height>21</height>
     </rect>
    </property>
@@ -67,7 +67,7 @@
   <widget class="QComboBox" name="combo_box_first_entity">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>20</y>
      <width>361</width>
      <height>22</height>
@@ -77,7 +77,7 @@
   <widget class="QComboBox" name="combo_box_relationship_type">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>80</y>
      <width>361</width>
      <height>21</height>
@@ -87,7 +87,7 @@
   <widget class="QComboBox" name="combo_box_ref_entity">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>50</y>
      <width>361</width>
      <height>21</height>
@@ -97,7 +97,7 @@
   <widget class="QPushButton" name="button_cancel">
    <property name="geometry">
     <rect>
-     <x>415</x>
+     <x>405</x>
      <y>190</y>
      <width>75</width>
      <height>23</height>
@@ -110,7 +110,7 @@
   <widget class="QPushButton" name="button_add_relationship">
    <property name="geometry">
     <rect>
-     <x>335</x>
+     <x>325</x>
      <y>190</y>
      <width>75</width>
      <height>23</height>
@@ -128,7 +128,7 @@
     <rect>
      <x>10</x>
      <y>110</y>
-     <width>91</width>
+     <width>101</width>
      <height>21</height>
     </rect>
    </property>
@@ -139,7 +139,7 @@
   <widget class="QTextEdit" name="text_edit_definition">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>110</y>
      <width>361</width>
      <height>71</height>

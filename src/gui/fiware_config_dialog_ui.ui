@@ -43,7 +43,7 @@
     <rect>
      <x>10</x>
      <y>40</y>
-     <width>111</width>
+     <width>121</width>
      <height>21</height>
     </rect>
    </property>
@@ -56,7 +56,7 @@
     <rect>
      <x>10</x>
      <y>130</y>
-     <width>111</width>
+     <width>121</width>
      <height>21</height>
     </rect>
    </property>
@@ -69,7 +69,7 @@
     <rect>
      <x>10</x>
      <y>70</y>
-     <width>111</width>
+     <width>121</width>
      <height>21</height>
     </rect>
    </property>
@@ -82,7 +82,7 @@
     <rect>
      <x>10</x>
      <y>100</y>
-     <width>111</width>
+     <width>131</width>
      <height>21</height>
     </rect>
    </property>
@@ -95,7 +95,7 @@
     <rect>
      <x>10</x>
      <y>160</y>
-     <width>111</width>
+     <width>121</width>
      <height>21</height>
     </rect>
    </property>
@@ -108,7 +108,7 @@
     <rect>
      <x>10</x>
      <y>190</y>
-     <width>111</width>
+     <width>121</width>
      <height>20</height>
     </rect>
    </property>
@@ -121,7 +121,7 @@
     <rect>
      <x>10</x>
      <y>220</y>
-     <width>111</width>
+     <width>121</width>
      <height>21</height>
     </rect>
    </property>
@@ -132,9 +132,9 @@
   <widget class="QLineEdit" name="line_edit_url">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>140</x>
      <y>40</y>
-     <width>331</width>
+     <width>341</width>
      <height>21</height>
     </rect>
    </property>
@@ -142,9 +142,9 @@
   <widget class="QLineEdit" name="line_edit_api_key">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>140</x>
      <y>130</y>
-     <width>251</width>
+     <width>261</width>
      <height>21</height>
     </rect>
    </property>
@@ -152,9 +152,9 @@
   <widget class="QLineEdit" name="line_edit_fiware_service">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>140</x>
      <y>70</y>
-     <width>331</width>
+     <width>341</width>
      <height>21</height>
     </rect>
    </property>
@@ -162,9 +162,9 @@
   <widget class="QLineEdit" name="line_edit_fiware_service_path">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>140</x>
      <y>100</y>
-     <width>331</width>
+     <width>341</width>
      <height>21</height>
     </rect>
    </property>
@@ -172,9 +172,9 @@
   <widget class="QComboBox" name="combo_box_time_zone">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>140</x>
      <y>160</y>
-     <width>251</width>
+     <width>261</width>
      <height>21</height>
     </rect>
    </property>
@@ -182,9 +182,9 @@
   <widget class="QLineEdit" name="line_edit_mqtt_topics_file">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>140</x>
      <y>190</y>
-     <width>251</width>
+     <width>261</width>
      <height>21</height>
     </rect>
    </property>
@@ -208,9 +208,9 @@
   <widget class="QLineEdit" name="line_edit_grafana_config_file">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>140</x>
      <y>220</y>
-     <width>251</width>
+     <width>261</width>
      <height>21</height>
     </rect>
    </property>

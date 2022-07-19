@@ -41,6 +41,18 @@ class BaseEntity():
             self.short_id_ontology = new_id
 
 
+    def get_ontology_id_from_id(self, entity_id):
+        ontology_id = ""
+        splitted_id = entity_id.split(":")
+        if len(splitted_id) >= 2:
+            if splitted_id[-1].isnumeric():
+                ontology_id = f"{splitted_id[-2]}_{splitted_id[-1]}"
+            else:
+                ontology_id = splitted_id[-1]
+        else:
+            ontology_id = entity_id
+        return ontology_id
+
 
     def add_relationship(self, ref_entity, relationship_type):
 
@@ -73,7 +85,38 @@ class BaseEntity():
         })
 
 
+    def print_ontology_base_attributes(self, ttl_file_text):
+        ttl_file_text = (f'{ttl_file_text}\n\nebc:{self.short_id_ontology} a brick:Site;\n'
+                         f'    skos:definition "{ontology_strings.site_definition}"')
+        return ttl_file_text
+
+
+    def print_ontology_relationships(self, ttl_file_text):
+        for key in self.base_attributes:
+            if ("type" in self.base_attributes[key]) and (self.base_attributes[key]["type"] == "Relationship"):
+                ref_entity_ontology_id = self.get_ontology_id_from_id(self.base_attributes[key]["value"])
+                relationship_type = key
+                ttl_file_text = f'{ttl_file_text};\n    brick:{relationship_type} ebc:{ref_entity_ontology_id}'
+        ttl_file_text = f'{ttl_file_text} .'
+        return ttl_file_text
+
+
     def print_ontology(self, ttl_file_text):
-        ttl_file_text = (f'{ttl_file_text}\n\nebc:{self.short_id_ontology} a Brick:Site;\n'
-                         f'    skos:definition "{ontology_strings.site_definition} ."')
+
+        # write id and type to ontology
+        ttl_file_text = self.print_ontology_base_attributes(ttl_file_text)
+        ttl_file_text = self.print_ontology_relationships(ttl_file_text)
+        #ttl_file_text = (f'{ttl_file_text}\n\nebc:{self.short_id_ontology} a brick:Site;\n'
+        #                 f'    skos:definition "{ontology_strings.site_definition}"')
+
+        # write relationships of the entity to ontology
+        '''
+        for key in self.base_attributes:
+            if ("type" in self.base_attributes[key]) and ("type" == "Relationship"):
+                ref_entity_ontology_id = get_ontology_id_from_id(self.base_attributes[key]["value"])
+                relationship_type = self.base_attributes[key]["type"]
+                ttl_file_text = f'{ttl_file_text};\nbrick:{relationship_type} ebc:{ref_entity_ontology_id}'
+        ttl_file_text = f'{ttl_file_text} .'
+        '''
+
         return ttl_file_text

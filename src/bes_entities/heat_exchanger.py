@@ -14,3 +14,9 @@ class HeatExchanger(BaseEntity):
     @staticmethod
     def get_entity_count():
         return HeatExchanger.entity_count
+
+
+    def print_ontology_base_attributes(self, ttl_file_text):
+        ttl_file_text = (f'{ttl_file_text}\n\nebc:{self.short_id_ontology} a brick:Heat_Exchanger;\n'
+                         f'    skos:definition "{ontology_strings.heat_exchanger_definition}"')
+        return ttl_file_text

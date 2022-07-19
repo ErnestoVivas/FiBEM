@@ -80,20 +80,22 @@ class AddEntityDialog(QtWidgets.QDialog):
         else:
             self.selected_entity = 17 + entity_index
 
+
     def add_entity(self):
         self.get_selected_entity()
         self.chosen_entity.emit(self.selected_entity, self.ui.line_edit_set_id.text())
         self.close()
 
+
     def cancel_add_entity(self):
         self.close()
+
 
     def display_entity_properties(self):
         self.get_selected_entity()
         current_entity_count = self.current_bes.get_entity_count(self.selected_entity)
         entity_type_str, entity_definition_str = ontology_strings.get_entity_strings(self.selected_entity)
         entity_type_str_no_prefix = ontology_strings.strip_prefix(entity_type_str)
-        self.ui.line_edit_set_id.setText(self.current_bes.id + ":" + entity_type_str_no_prefix +
-                                         ":" + str(current_entity_count))
+        self.ui.line_edit_set_id.setText(f"{self.current_bes.id}:{entity_type_str_no_prefix}:{str(current_entity_count + 1).zfill(3)}")
         self.ui.line_edit_brick_type.setText(entity_type_str)
         self.ui.plain_text_edit_brick_definition.setPlainText(entity_definition_str)

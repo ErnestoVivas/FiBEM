@@ -20,7 +20,7 @@ from gui import mainwindow_ui
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QListWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QListWidgetItem, QMessageBox, QFileDialog
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -51,7 +51,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.button_delete_entity.clicked.connect(self.delete_entity)
         self.ui.button_add_relationship.clicked.connect(self.add_relationship)
         self.ui.button_delete_relationship.clicked.connect(self.delete_relationship)
+        self.ui.button_export_ontology.clicked.connect(self.export_ontology)
         self.ui.button_push_to_fiware.clicked.connect(self.push_to_fiware)
+
+        # connect menu items to functions
+        self.ui.menu_file_action_quit.triggered.connect(self.exit_application)
 
         # init bes
         self.building_energy_system = None
@@ -77,7 +81,7 @@ class MainWindow(QtWidgets.QMainWindow):
             first_entity = self.building_energy_system.entities[relationship["first_entity"]].short_id
             ref_entity = self.building_energy_system.entities[relationship["ref_entity"]].short_id
             rel_type = relationship["relationship_type"]
-            rel_str = first_entity + " " + rel_type + " " + ref_entity
+            rel_str = f"{first_entity} {rel_type} {ref_entity}"
             self.ui.list_widget_relationships.addItem(QListWidgetItem(rel_str))
 
     def add_entity_to_bes(self, chosen_entity, entity_id):
@@ -138,7 +142,24 @@ class MainWindow(QtWidgets.QMainWindow):
         self.add_relationship_dialog.show()
 
 
+    def export_ontology(self):
+        ontology_file_name, check = QFileDialog.getSaveFileName(self, "Export Ontology", "", "TTL File (*.ttl)")
+        if check:
+            self.building_energy_system.print_ontology(ontology_file_name)
+
+
     def push_to_fiware(self):
         self.fiware_config_dialog = FiwareConfigDialog(self.building_energy_system)
         self.fiware_config_dialog.setWindowModality(Qt.ApplicationModal)
         self.fiware_config_dialog.show()
+
+
+    def exit_application(self):
+        exit_message_box = QMessageBox()
+        exit_message_box.setIcon(QMessageBox.Information)
+        exit_message_box.setText("Do you really want to quit?")
+        exit_message_box.setWindowTitle("Quit Application")
+        exit_message_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        answer = exit_message_box.exec()
+        if answer == QMessageBox.Ok:
+            self.close()

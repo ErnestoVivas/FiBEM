@@ -19,6 +19,7 @@ from bes_entities import water_system
 from bes_entities import room
 from bes_entities import building
 from bes_entities import outside
+from bes_entities import ontology_strings
 
 
 class BuildingEnergySystem():
@@ -115,7 +116,7 @@ class BuildingEnergySystem():
         first_entity = self.relationships[relationship_index]["first_entity"]
         relationship_type = self.relationships[relationship_index]["relationship_type"]
         del self.entities[first_entity].base_attributes[relationship_type]
-        
+
         # remove relationship from global relationship list
         del self.relationships[relationship_index]
 
@@ -128,6 +129,17 @@ class BuildingEnergySystem():
             "ref_entity": ref_entity,
             "relationship_type": relationship_type
         })
+
+
+    def print_ontology(self, ontology_file_name):
+        ttl_file_text = ontology_strings.ontology_prefixes
+
+        for entity in self.entities:
+            ttl_file_text = entity.print_ontology(ttl_file_text)
+
+        with open(ontology_file_name, "w") as ontology_file:
+            ontology_file.write(ttl_file_text)
+
 
     def get_entity_count(self, entity_type):
         # this function returns the total amount of entites that have been

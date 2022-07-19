@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>485</width>
+    <width>495</width>
     <height>301</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>485</width>
+    <width>495</width>
     <height>301</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>485</width>
+    <width>495</width>
     <height>301</height>
    </size>
   </property>
@@ -132,7 +132,7 @@
   <widget class="QLineEdit" name="line_edit_url">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>150</x>
      <y>40</y>
      <width>331</width>
      <height>21</height>
@@ -142,7 +142,7 @@
   <widget class="QLineEdit" name="line_edit_api_key">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>150</x>
      <y>130</y>
      <width>251</width>
      <height>21</height>
@@ -152,7 +152,7 @@
   <widget class="QLineEdit" name="line_edit_fiware_service">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>150</x>
      <y>70</y>
      <width>331</width>
      <height>21</height>
@@ -162,7 +162,7 @@
   <widget class="QLineEdit" name="line_edit_fiware_service_path">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>150</x>
      <y>100</y>
      <width>331</width>
      <height>21</height>
@@ -172,7 +172,7 @@
   <widget class="QComboBox" name="combo_box_time_zone">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>150</x>
      <y>160</y>
      <width>251</width>
      <height>21</height>
@@ -182,7 +182,7 @@
   <widget class="QLineEdit" name="line_edit_mqtt_topics_file">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>150</x>
      <y>190</y>
      <width>251</width>
      <height>21</height>
@@ -192,7 +192,7 @@
   <widget class="QPushButton" name="button_open_mqtt_topics_file">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>410</x>
      <y>190</y>
      <width>71</width>
      <height>21</height>
@@ -208,7 +208,7 @@
   <widget class="QLineEdit" name="line_edit_grafana_config_file">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>150</x>
      <y>220</y>
      <width>251</width>
      <height>21</height>
@@ -218,7 +218,7 @@
   <widget class="QPushButton" name="button_open_grafana_config_file">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>410</x>
      <y>220</y>
      <width>71</width>
      <height>21</height>
@@ -234,7 +234,7 @@
   <widget class="QPushButton" name="button_ok">
    <property name="geometry">
     <rect>
-     <x>315</x>
+     <x>325</x>
      <y>260</y>
      <width>75</width>
      <height>23</height>
@@ -250,7 +250,7 @@
   <widget class="QPushButton" name="button_cancel">
    <property name="geometry">
     <rect>
-     <x>395</x>
+     <x>405</x>
      <y>260</y>
      <width>75</width>
      <height>23</height>
@@ -266,7 +266,7 @@
   <widget class="QPushButton" name="button_random_api_key">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>410</x>
      <y>130</y>
      <width>71</width>
      <height>21</height>

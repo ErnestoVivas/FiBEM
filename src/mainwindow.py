@@ -56,8 +56,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # connect menu items to functions
         self.ui.menu_file_action_quit.triggered.connect(self.exit_application)
+        self.ui.menu_file_action_save.triggered.connect(self.bes_save)
+        self.ui.menu_file_action_save_as.triggered.connect(self.bes_save_as)
 
         # init bes
+        self.bes_save_file_name = ""
         self.building_energy_system = None
         self.startup_dialog = StartupDialog()
         self.startup_dialog.bes_id_set.connect(self.init_bes)
@@ -84,6 +87,45 @@ class MainWindow(QtWidgets.QMainWindow):
             rel_str = f"{first_entity} {rel_type} {ref_entity}"
             self.ui.list_widget_relationships.addItem(QListWidgetItem(rel_str))
 
+
+    def write_bes_to_file(self, save_file_name):
+        save_file_text = "# FiBEM save file"
+        entity_count = self.ui.list_widget_entities.count()
+
+        # add entities to save file
+        for i in range(entity_count):
+            item_strings = self.ui.list_widget_entities.item(i).text().split(" ")
+            current_entity_type = item_strings[0]
+            current_entity_id = item_strings[-1]
+            save_file_text = f"{save_file_text}\n{current_entity_type} {current_entity_id}"
+        save_file_text = f"{save_file_text}\n\n# Relationships"
+
+        # add relationships to save file
+        for relationship in self.building_energy_system.relationships:
+            first_entity = str(relationship["first_entity"])
+            ref_entity = str(relationship["ref_entity"])
+            relationship_type = str(relationship["relationship_type"])
+            save_file_text = f"{save_file_text}\n{first_entity} {ref_entity} {relationship_type}"
+
+        # write save file
+        with open(save_file_name, "w") as save_file:
+            save_file.write(save_file_text)
+
+
+    def bes_save(self):
+        if self.bes_save_file_name:
+            self.write_bes_to_file(self.bes_save_file_name)
+        else:
+            self.bes_save_as()
+
+
+    def bes_save_as(self):
+        save_file_name, check = QFileDialog.getSaveFileName(self, "Save Building Energy System", "", "Config file (*.cfg)")
+        if check:
+            self.bes_save_file_name = save_file_name
+            self.write_bes_to_file(save_file_name)
+
+
     def add_entity_to_bes(self, chosen_entity, entity_id):
         self.building_energy_system.add_entity(chosen_entity, entity_id)
         self.display_bes()
@@ -102,7 +144,15 @@ class MainWindow(QtWidgets.QMainWindow):
         # stored on the 'building_energy_system' object
 
         current_entity_index = self.ui.list_widget_entities.currentRow()
-        if current_entity_index < 0:
+        if current_entity_index == 0:
+            no_item_selected_message_box = QMessageBox()
+            no_item_selected_message_box.setIcon(QMessageBox.Information)
+            no_item_selected_message_box.setText("Root entity can not be deleted.\n")
+            no_item_selected_message_box.setWindowTitle("Can not delete root entity")
+            no_item_selected_message_box.setStandardButtons(QMessageBox.Ok)
+            answer = no_item_selected_message_box.exec()
+            return
+        elif current_entity_index < 1:
             no_item_selected_message_box = QMessageBox()
             no_item_selected_message_box.setIcon(QMessageBox.Warning)
             no_item_selected_message_box.setText("Can not delete entity: No entity has been selected.")

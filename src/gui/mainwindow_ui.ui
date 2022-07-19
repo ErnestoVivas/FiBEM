@@ -215,7 +215,12 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="menu_file_action_new"/>
+    <addaction name="menu_file_action_import"/>
     <addaction name="menu_file_action_parse_fmu"/>
+    <addaction name="separator"/>
+    <addaction name="menu_file_action_save"/>
+    <addaction name="menu_file_action_save_as"/>
     <addaction name="separator"/>
     <addaction name="menu_file_action_quit"/>
    </widget>
@@ -230,6 +235,26 @@
   <action name="menu_file_action_quit">
    <property name="text">
     <string>Quit</string>
+   </property>
+  </action>
+  <action name="menu_file_action_new">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="menu_file_action_import">
+   <property name="text">
+    <string>Import</string>
+   </property>
+  </action>
+  <action name="menu_file_action_save">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="menu_file_action_save_as">
+   <property name="text">
+    <string>Save As</string>
    </property>
   </action>
  </widget>

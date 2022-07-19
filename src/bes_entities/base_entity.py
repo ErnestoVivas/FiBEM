@@ -102,21 +102,6 @@ class BaseEntity():
 
 
     def print_ontology(self, ttl_file_text):
-
-        # write id and type to ontology
         ttl_file_text = self.print_ontology_base_attributes(ttl_file_text)
         ttl_file_text = self.print_ontology_relationships(ttl_file_text)
-        #ttl_file_text = (f'{ttl_file_text}\n\nebc:{self.short_id_ontology} a brick:Site;\n'
-        #                 f'    skos:definition "{ontology_strings.site_definition}"')
-
-        # write relationships of the entity to ontology
-        '''
-        for key in self.base_attributes:
-            if ("type" in self.base_attributes[key]) and ("type" == "Relationship"):
-                ref_entity_ontology_id = get_ontology_id_from_id(self.base_attributes[key]["value"])
-                relationship_type = self.base_attributes[key]["type"]
-                ttl_file_text = f'{ttl_file_text};\nbrick:{relationship_type} ebc:{ref_entity_ontology_id}'
-        ttl_file_text = f'{ttl_file_text} .'
-        '''
-
         return ttl_file_text

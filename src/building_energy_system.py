@@ -141,6 +141,25 @@ class BuildingEnergySystem():
             ontology_file.write(ttl_file_text)
 
 
+    def reset_bes(self):
+        for i, entity in enumerate(self.entities):
+            if hasattr(self.entities[i], "entity_count"):
+                type(self.entities[i]).entity_count = 0
+        self.entities.clear()
+        self.relationships.clear()
+        self.entities.append(base_entity.BaseEntity(self.id, "Site"))
+
+
+    def reset_bes_new_id(self, new_bes_id):
+        self.id = new_bes_id
+        for i, entity in enumerate(self.entities):
+            if hasattr(self.entities[i], "entity_count"):
+                type(self.entities[i]).entity_count = 0
+        self.entities.clear()
+        self.relationships.clear()
+        self.entities.append(base_entity.BaseEntity(new_bes_id, "Site"))
+
+
     def get_entity_count(self, entity_type):
         # this function returns the total amount of entites that have been
         # instantiated; if an entity was deleted, the count does not diminish

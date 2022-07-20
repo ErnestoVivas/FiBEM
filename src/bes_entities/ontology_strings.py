@@ -159,6 +159,29 @@ entity_strings_by_value = {
     "19": [outside_type, outside_definition]
 }
 
+entity_value_from_string = {
+    "Heat_Pump": 0,
+    "Electric_Boiler": 1,
+    "Natural_Gas_Boiler": 2,
+    "Cogeneration_Plant": 3,
+    "Heat_Exchanger": 4,
+    "PV_Panel": 5,
+    "PVT_Panel": 6,
+    "Solar_Thermal_Collector": 7,
+    "Water_Heater": 8,
+    "Water_Distribution": 9,
+    "Valve": 10,
+    "Pump": 11,
+    "Radiator": 12,
+    "Battery": 13,
+    "HVAC_System": 14,
+    "Electrical_System": 15,
+    "Water_System": 16,
+    "Room": 17,
+    "Building": 18,
+    "Outside": 19
+}
+
 relationship_definition_by_value = {
     "0": feeds_definition,
     "1": has_location_definition,

@@ -1,0 +1,53 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix bsh: <https://brickschema.org/schema/BrickShape#> .
+@prefix dcterms: <http://purl.org/dc/terms#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix qudt: <http://qudt.org/schema/qudt/>.
+@prefix qudtqk: <http://qudt.org/vocab/quantitykind/>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdo: <http://schema.org/>.
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix tag: <https://brickschema.org/schema/BrickTag#> .
+@prefix unit: <http://qudt.org/vocab/unit/>.
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ebc: <https://www.ebc.eonerc.rwth-aachen.de/cms/~dmzz/E-ON-ERC-EBC/#> .
+
+
+ebc:my_house a brick:Site;
+    skos:definition "A geographic region containing 0 or more buildings. Typically used as the encapsulating location for a collection of Brick entities through the hasSite/isSiteOf relationships." .
+
+ebc:HVAC_System_001 a brick:HVAC_System;
+    skos:definition "The equipment, distribution systems and terminals that provide, either collectively or individually, the processes of heating, ventilating or air conditioning to a building or portion of a building.";
+    brick:isPartOf ebc:Building_001 .
+
+ebc:Heat_Pump_001 a ebc:Heat_Pump;
+    skos:definition "A device that transfers heat between spaces with the use of electrical energy, based on the refrigeration [vapor-compression] cycle.";
+    brick:isPartOf ebc:HVAC_System_001;
+    brick:feeds ebc:Water_Heater_001 .
+
+ebc:Water_Heater_001 a brick:Water_Heater;
+    skos:definition "An apparatus for heating and usually storing hot water.";
+    brick:isPartOf ebc:HVAC_System_001 .
+
+ebc:Radiator_001 a brick:Radiator;
+    skos:definition "Heat exchangers designed to transfer thermal energy from one medium to another.";
+    brick:hasLocation ebc:Room_001;
+    brick:isPartOf ebc:HVAC_System_001;
+    brick:isFedBy ebc:Water_Heater_001;
+    brick:feeds ebc:Room_001 .
+
+ebc:Building_001 a brick:Building;
+    skos:definition "An independent unit of the built environment with a characteristic spatial structure, intended to serve at least one function or user activity [ISO 12006-2:2013], a structure wholly or partially enclosed within exterior walls, or within exterior and party walls, and a roof, affording shelter to persons, animals, or property.";
+    brick:isPartOf ebc:my_house .
+
+ebc:Room_001 a brick:Room;
+    skos:definition "Base class for all more specific room types.";
+    brick:hasLocation ebc:Building_001 .
+
+ebc:Outside_001 a brick:Outside;
+    skos:definition "Entity that describes the weather and outside environment of the location of the considered site or building.";
+    brick:isPartOf ebc:my_house .

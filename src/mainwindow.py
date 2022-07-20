@@ -14,6 +14,7 @@ from add_relationship_dialog import AddRelationshipDialog
 from fiware_config_dialog import FiwareConfigDialog
 
 from building_energy_system import BuildingEnergySystem
+from bes_entities import ontology_strings
 
 from gui import mainwindow_ui
 
@@ -51,13 +52,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.button_delete_entity.clicked.connect(self.delete_entity)
         self.ui.button_add_relationship.clicked.connect(self.add_relationship)
         self.ui.button_delete_relationship.clicked.connect(self.delete_relationship)
+        self.ui.button_delete_all_entities.clicked.connect(self.clear_all)
         self.ui.button_export_ontology.clicked.connect(self.export_ontology)
         self.ui.button_push_to_fiware.clicked.connect(self.push_to_fiware)
 
         # connect menu items to functions
-        self.ui.menu_file_action_quit.triggered.connect(self.exit_application)
+        self.ui.menu_file_action_new.triggered.connect(self.make_new_bes)
+        self.ui.menu_file_action_import.triggered.connect(self.import_bes)
         self.ui.menu_file_action_save.triggered.connect(self.bes_save)
         self.ui.menu_file_action_save_as.triggered.connect(self.bes_save_as)
+        self.ui.menu_file_action_export_ontology.triggered.connect(self.export_ontology)
+        self.ui.menu_file_action_post_to_fiware.triggered.connect(self.push_to_fiware)
+        self.ui.menu_file_action_quit.triggered.connect(self.exit_application)
 
         # init bes
         self.bes_save_file_name = ""
@@ -68,9 +74,52 @@ class MainWindow(QtWidgets.QMainWindow):
         self.startup_dialog.show()
 
 
+    def make_new_bes(self):
+        self.startup_dialog = StartupDialog()
+        self.startup_dialog.bes_id_set.connect(self.reset_bes)
+        self.startup_dialog.setWindowModality(Qt.ApplicationModal)
+        self.startup_dialog.show()
+
+
     def init_bes(self, bes_id):
         self.building_energy_system = BuildingEnergySystem(bes_id)
         self.display_bes()
+
+
+    def reset_bes(self, new_bes_id):
+        self.building_energy_system.reset_bes_new_id(new_bes_id)
+        self.display_bes()
+
+
+    def import_bes(self):
+        import_file_name, check = QFileDialog.getOpenFileName(self, "Import", "", "Config file (*.cfg)")
+        if check:
+            with open(import_file_name, "r") as import_file:
+                imported_bes = import_file.readlines()
+                i = 0
+                for line in imported_bes:
+                    line = line.rstrip("\n")
+                    if (i == 0) and (not(line == "# FiBEM save file")):
+                        print("got here")
+                        return
+
+                    splitted_line = line.split(" ")
+                    if i == 1:
+                        new_bes_id = splitted_line[2]
+                        self.reset_bes(new_bes_id)
+                    else:
+                        type = splitted_line[0]
+                        if type == "#Entity":
+                            entity_type = splitted_line[1]
+                            entity_id = splitted_line[2]
+                            entity_type_numeric = ontology_strings.entity_value_from_string[entity_type]
+                            self.add_entity_to_bes(entity_type_numeric, entity_id)
+                        elif type == "#Relationship":
+                            first_entity = int(splitted_line[1])
+                            ref_entity = int(splitted_line[2])
+                            relationship_type = splitted_line[3]
+                            self.add_relationship_to_bes(first_entity, ref_entity, relationship_type)
+                    i += 1
 
 
     def display_bes(self):
@@ -97,15 +146,13 @@ class MainWindow(QtWidgets.QMainWindow):
             item_strings = self.ui.list_widget_entities.item(i).text().split(" ")
             current_entity_type = item_strings[0]
             current_entity_id = item_strings[-1]
-            save_file_text = f"{save_file_text}\n{current_entity_type} {current_entity_id}"
-        save_file_text = f"{save_file_text}\n\n# Relationships"
-
+            save_file_text = f"{save_file_text}\n#Entity {current_entity_type} {current_entity_id}"
         # add relationships to save file
         for relationship in self.building_energy_system.relationships:
             first_entity = str(relationship["first_entity"])
             ref_entity = str(relationship["ref_entity"])
             relationship_type = str(relationship["relationship_type"])
-            save_file_text = f"{save_file_text}\n{first_entity} {ref_entity} {relationship_type}"
+            save_file_text = f"{save_file_text}\n#Relationship {first_entity} {ref_entity} {relationship_type}"
 
         # write save file
         with open(save_file_name, "w") as save_file:
@@ -178,6 +225,11 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.building_energy_system.delete_relationship(current_relationship_index)
             self.display_bes()
+
+
+    def clear_all(self):
+        self.building_energy_system.reset_bes()
+        self.display_bes()
 
 
     def add_relationship_to_bes(self, first_entity, ref_entity, relationship_type):

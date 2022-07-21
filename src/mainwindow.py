@@ -9,6 +9,7 @@
 from sys import platform
 
 from startup_dialog import StartupDialog
+from parse_fmu_dialog import ParseFmuDialog
 from add_entity_dialog import AddEntityDialog
 from add_relationship_dialog import AddRelationshipDialog
 from fiware_config_dialog import FiwareConfigDialog
@@ -43,6 +44,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # sub windows and dialogs
         self.startup_dialog = None
+        self.parse_fmu_dialog = None
         self.add_entity_dialog = None
         self.add_relationship_dialog = None
         self.fiware_config_dialog = None
@@ -50,6 +52,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # connect buttons to their respective functions
         self.ui.button_add_entity.clicked.connect(self.add_entity)
         self.ui.button_delete_entity.clicked.connect(self.delete_entity)
+        self.ui.button_parse_fmu.clicked.connect(self.parse_fmu)
         self.ui.button_add_relationship.clicked.connect(self.add_relationship)
         self.ui.button_delete_relationship.clicked.connect(self.delete_relationship)
         self.ui.button_delete_all_entities.clicked.connect(self.clear_all)
@@ -59,6 +62,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # connect menu items to functions
         self.ui.menu_file_action_new.triggered.connect(self.make_new_bes)
         self.ui.menu_file_action_import.triggered.connect(self.import_bes)
+        self.ui.menu_file_action_parse_fmu.triggered.connect(self.parse_fmu)
         self.ui.menu_file_action_save.triggered.connect(self.bes_save)
         self.ui.menu_file_action_save_as.triggered.connect(self.bes_save_as)
         self.ui.menu_file_action_export_ontology.triggered.connect(self.export_ontology)
@@ -120,6 +124,15 @@ class MainWindow(QtWidgets.QMainWindow):
                             relationship_type = splitted_line[3]
                             self.add_relationship_to_bes(first_entity, ref_entity, relationship_type)
                     i += 1
+
+
+    def parse_fmu(self):
+        fmu_file_name, check = QFileDialog.getOpenFileName(self, "Open FMU file", "", "FMU file (*.fmu)")
+        if check:
+            self.parse_fmu_dialog = ParseFmuDialog(fmu_file_name, self.platform)
+            #self.parse_fmu_dialog.bes_id_set.connect(self.reset_bes)
+            self.parse_fmu_dialog.setWindowModality(Qt.ApplicationModal)
+            self.parse_fmu_dialog.show()
 
 
     def display_bes(self):

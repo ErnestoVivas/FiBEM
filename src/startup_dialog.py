@@ -12,7 +12,7 @@ class StartupDialog(QtWidgets.QDialog):
         self.ui = startup_dialog_ui.Ui_StartupDialog()
         self.ui.setupUi(self)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.ui.line_edit_bes_id.setText("urn:ngsi_ld:my_house")
+        self.ui.line_edit_bes_id.setText("urn:ngsi-ld:my_house")
         self.ui.button_ok.clicked.connect(self.init_bes)
 
     def init_bes(self):

@@ -36,19 +36,19 @@ extend the fibem model.
 FiBEM uses a conda environment to run. After cloning the repository open a terminal
 and navigate to the main folder of FiBEM. Here you will find the file "fibem_env.yml".
 Create the conda environment:
-´´´
-conda env create -f fibem_env.yml
-´´´
+```
+    conda env create -f fibem_env.yml
+```
 
 After the conda environment has been created activate it before executing FiBEM:
-´´´
-conda activate fibem_env
-´´´
+```
+    conda activate fibem_env
+```
 
 Once the environment is activate, navigate to FiBEM/src and execute main.py:
-´´´
-(fibem_env) PS C:\..<Path>..\FiBEM\src> python main.py
-´´´
+```
+    (fibem_env) PS C:\..<Path>..\FiBEM\src> python main.py
+```
 
 That's it. If you do not want to use the conda environment, make sure your local
 python environment has the packages listed in the fibem_env.yml file installed.

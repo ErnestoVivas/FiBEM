@@ -130,9 +130,21 @@ class MainWindow(QtWidgets.QMainWindow):
         fmu_file_name, check = QFileDialog.getOpenFileName(self, "Open FMU file", "", "FMU file (*.fmu)")
         if check:
             self.parse_fmu_dialog = ParseFmuDialog(fmu_file_name, self.platform)
-            #self.parse_fmu_dialog.bes_id_set.connect(self.reset_bes)
+            self.parse_fmu_dialog.parsed_entities.connect(self.set_entities_from_fmu)
             self.parse_fmu_dialog.setWindowModality(Qt.ApplicationModal)
             self.parse_fmu_dialog.show()
+
+
+    def set_entities_from_fmu(self, new_bes_id, parsed_entities):
+        self.reset_bes(f"urn:ngsi-ld:{new_bes_id}")
+        parsed_entities = parsed_entities.split(" ")
+        for entity in parsed_entities:
+            current_entity_count = self.building_energy_system.get_entity_count(int(entity))
+            entity_type_str, entity_def = ontology_strings.get_entity_strings(int(entity))
+            entity_type_no_prefix = ontology_strings.strip_prefix(entity_type_str)
+            entity_id = f"urn:ngsi-ld:{new_bes_id}:{entity_type_no_prefix}:{str(current_entity_count + 1).zfill(3)}"
+            self.building_energy_system.add_entity(int(entity), entity_id)
+        self.display_bes()
 
 
     def display_bes(self):

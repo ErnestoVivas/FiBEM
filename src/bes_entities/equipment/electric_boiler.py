@@ -1,5 +1,5 @@
-from .base_entity import BaseEntity
-from .device_attributes import power_attr
+from bes_entities.base_entity import BaseEntity
+from bes_entities.device_attributes import power_attr
 from bes_entities import ontology_strings
 
 class ElectricBoiler(BaseEntity):

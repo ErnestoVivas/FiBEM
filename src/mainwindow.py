@@ -1,9 +1,9 @@
 
 '''
-    This class handles the main window of FiBEM and all its respective
-    functions. The objective is to create a building energy system consisting of
-    a set of entities and relationships. The logic of the BES itself is handled
-    in the class "building_energy_system" and is an attribute of MainWindow.
+This class handles the main window of FiBEM and all its respective
+functions. The objective is to create a building energy system consisting of
+a set of entities and relationships. The logic of the BES itself is handled
+in the class "building_energy_system" and is an attribute of MainWindow.
 '''
 
 from sys import platform
@@ -11,6 +11,7 @@ from sys import platform
 from startup_dialog import StartupDialog
 from parse_fmu_dialog import ParseFmuDialog
 from add_entity_dialog import AddEntityDialog
+from show_devices_dialog import ShowDevicesDialog
 from add_relationship_dialog import AddRelationshipDialog
 from fiware_config_dialog import FiwareConfigDialog
 
@@ -46,6 +47,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.startup_dialog = None
         self.parse_fmu_dialog = None
         self.add_entity_dialog = None
+        self.show_devices_dialog = None
         self.add_relationship_dialog = None
         self.fiware_config_dialog = None
 
@@ -53,6 +55,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.button_add_entity.clicked.connect(self.add_entity)
         self.ui.button_delete_entity.clicked.connect(self.delete_entity)
         self.ui.button_parse_fmu.clicked.connect(self.parse_fmu)
+        self.ui.button_devices.clicked.connect(self.show_devices)
         self.ui.button_add_relationship.clicked.connect(self.add_relationship)
         self.ui.button_delete_relationship.clicked.connect(self.delete_relationship)
         self.ui.button_delete_all_entities.clicked.connect(self.clear_all)
@@ -161,6 +164,12 @@ class MainWindow(QtWidgets.QMainWindow):
             rel_str = f"{first_entity} {rel_type} {ref_entity}"
             self.ui.list_widget_relationships.addItem(QListWidgetItem(rel_str))
 
+
+    def show_devices(self):
+        self.show_devices_dialog = ShowDevicesDialog(self.building_energy_system)
+        #self.show_devices_dialog.chosen_entity.connect(self.add_entity_to_bes)
+        self.show_devices_dialog.setWindowModality(Qt.ApplicationModal)
+        self.show_devices_dialog.show()
 
     def write_bes_to_file(self, save_file_name):
         save_file_text = "# FiBEM save file"

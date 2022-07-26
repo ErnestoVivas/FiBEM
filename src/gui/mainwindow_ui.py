@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\mainwindow_ui.ui'
+# Form implementation generated from reading ui file 'mainwindow_ui.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -33,6 +33,9 @@ class Ui_MainWindow(object):
         self.button_parse_fmu = QtWidgets.QPushButton(self.group_box_entities)
         self.button_parse_fmu.setObjectName("button_parse_fmu")
         self.verticalLayout.addWidget(self.button_parse_fmu)
+        self.button_devices = QtWidgets.QPushButton(self.group_box_entities)
+        self.button_devices.setObjectName("button_devices")
+        self.verticalLayout.addWidget(self.button_devices)
         self.button_delete_entity = QtWidgets.QPushButton(self.group_box_entities)
         self.button_delete_entity.setObjectName("button_delete_entity")
         self.verticalLayout.addWidget(self.button_delete_entity)
@@ -134,6 +137,7 @@ class Ui_MainWindow(object):
         self.group_box_entities.setTitle(_translate("MainWindow", "Entities"))
         self.button_add_entity.setText(_translate("MainWindow", "Add"))
         self.button_parse_fmu.setText(_translate("MainWindow", "Parse FMU"))
+        self.button_devices.setText(_translate("MainWindow", "Devices"))
         self.button_delete_entity.setText(_translate("MainWindow", "Delete"))
         self.button_delete_all_entities.setText(_translate("MainWindow", "Clear all"))
         self.group_box_relationships.setTitle(_translate("MainWindow", "Relationships"))

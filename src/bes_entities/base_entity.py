@@ -25,6 +25,7 @@ class BaseEntity():
         }
         self.devices = []
         self.set_short_id(new_id)
+        self.setup_standard_devices()
 
 
     def set_short_id(self, new_id):
@@ -52,6 +53,10 @@ class BaseEntity():
         else:
             ontology_id = entity_id
         return ontology_id
+
+
+    def setup_standard_devices(self):
+        pass
 
 
     def add_relationship(self, ref_entity, relationship_type):

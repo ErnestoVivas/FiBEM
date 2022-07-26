@@ -1,5 +1,6 @@
-from .base_entity import BaseEntity
+from bes_entities.base_entity import BaseEntity
 from bes_entities import ontology_strings
+
 
 class Cogeneration(BaseEntity):
 

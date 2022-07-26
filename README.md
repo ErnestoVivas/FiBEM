@@ -16,6 +16,7 @@ Creating entity-relationship models:
 * Create relationships between entities manually
 * Set relationships between entities automatically
 * Get entities and relationships automatically from an FMU model
+* Add or delete devices (sensors and actuators) in addition to the predefined devices
 * delete entities or relationships
 * save a created entity-relationship model
 * import a before saved entity-relationship model

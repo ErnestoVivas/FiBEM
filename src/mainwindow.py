@@ -132,7 +132,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def parse_fmu(self):
         fmu_file_name, check = QFileDialog.getOpenFileName(self, "Open FMU file", "", "FMU file (*.fmu)")
         if check:
-            self.parse_fmu_dialog = ParseFmuDialog(fmu_file_name, self.platform)
+            self.parse_fmu_dialog = ParseFmuDialog(fmu_file_name)
             self.parse_fmu_dialog.parsed_entities.connect(self.set_entities_from_fmu)
             self.parse_fmu_dialog.setWindowModality(Qt.ApplicationModal)
             self.parse_fmu_dialog.show()

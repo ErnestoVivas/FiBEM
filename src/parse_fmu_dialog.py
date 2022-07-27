@@ -1,4 +1,7 @@
+from sys import platform
+
 from gui import parse_fmu_dialog_ui
+from bes_entities import ontology_strings
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import pyqtSignal
@@ -12,16 +15,26 @@ class ParseFmuDialog(QtWidgets.QDialog):
     parsed_entities = pyqtSignal(str, str)
     #parsed_entities = pyqtSignal(str, List[int])
 
-    def __init__(self, opened_fmu_file_name, platform):
+    def __init__(self, opened_fmu_file_name):
 
         # setup window
         super().__init__()
         self.ui = parse_fmu_dialog_ui.Ui_ParseFmuDialog()
         self.ui.setupUi(self)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+
+        self.platform = "Windows"
+        if (platform == "linux") or (platform == "linux2"):
+            self.platform == "linux"
+            self.ui.text_edit_fmu_info.setFont(QFont("DejaVu Sans Mono"))
+            self.ui.text_edit_entities_and_relationships.setFont(QFont("DejaVu Sans Mono"))
+
+        '''
         if (platform == "linux") or (platform == "linux2"):
             self.ui.text_edit_fmu_info.setFont(QFont("DejaVu Sans Mono"))
             self.ui.text_edit_entities_and_relationships.setFont(QFont("DejaVu Sans Mono"))
+        '''
+
         self.system_type = -1
         self.system_name = ""
         self.fmu_model_variables = {}
@@ -55,6 +68,19 @@ class ParseFmuDialog(QtWidgets.QDialog):
             9: "18 16 9 9 10 10 11 11"
         }
 
+        self.standard_system_types = {
+            0: "Heat Pump System",
+            1: "Electric Boiler System",
+            2: "Gas Boiler System",
+            3: "Cogeneration System",
+            4: "Heat Exchanger Model",
+            5: "PVT System",
+            6: "PV System",
+            7: "Solar Thermal System",
+            8: "Hydraulic System",
+            9: "Hydraulic System"
+        }
+
         # display fmu information
         self.fmu_file_name = opened_fmu_file_name
         self.fmu_file_info = fmu_info(opened_fmu_file_name)
@@ -73,12 +99,7 @@ class ParseFmuDialog(QtWidgets.QDialog):
 
         for variable in self.fmu_file_model_description.modelVariables:
             self.fmu_model_variables[variable.name] = variable.valueReference
-        #inputs = self.fmu_model_variables["input"]
-        #outputs = self.fmu_model_variables['output']
-        #for input in inputs:
-        #    print(input)
-        #for output in outputs:
-        #    print(output)
+        self.display_fmu_entities()
 
 
     def get_system_type(self, model_name):
@@ -89,6 +110,17 @@ class ParseFmuDialog(QtWidgets.QDialog):
             if all(x in model_name.lower() for x in self.system_type_key_words[key]):
                 self.system_type = key
                 break
+
+
+    def display_fmu_entities(self):
+        if self.system_type >= 0:
+            self.ui.text_edit_entities_and_relationships.append(f"System type: {self.standard_system_types[self.system_type]}\n")
+            entity_indices = self.standard_system_entities[self.system_type].split(" ")
+            for entity in entity_indices:
+                entity_str = ontology_strings.entity_strings_by_value[entity][0]
+                self.ui.text_edit_entities_and_relationships.append(f"{entity_str}")
+        else:
+            self.ui.text_edit_entities_and_relationships.append("No matching building energy system entities could be found.")
 
 
     def add_entities(self):

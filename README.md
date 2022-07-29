@@ -46,7 +46,7 @@ After the conda environment has been created activate it before executing FiBEM:
 conda activate fibem_env
 ```
 
-Once the environment is activate, navigate to FiBEM/src and execute main.py:
+Once the environment is active, navigate to FiBEM/src and execute main.py:
 ```
 (fibem_env) PS C:\..<Path>..\FiBEM\src> python main.py
 ```
@@ -66,3 +66,8 @@ has the following FIWARE services running, otherwise an error will be thrown:
 - IoT Agent for JSON
 
 The communication with devices is designed to work over MQTT.
+
+Another way of posting the model to FIWARE is to export it to a JSON file. This
+will create two files, one for the entities and one for the devices. You can
+just post the JSON files with a manual post request to a running FIWARE
+application.

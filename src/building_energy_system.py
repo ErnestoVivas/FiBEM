@@ -21,6 +21,8 @@ from bes_entities.location import building
 from bes_entities.location import outside
 from bes_entities import ontology_strings
 
+import json
+
 
 class BuildingEnergySystem():
 
@@ -129,6 +131,21 @@ class BuildingEnergySystem():
             "ref_entity": ref_entity,
             "relationship_type": relationship_type
         })
+
+
+    def print_json(self, json_file_name):
+        entities_file_name = f"{json_file_name.rstrip('.json')}_entities.json"
+        devices_file_name = f"{json_file_name.rstrip('.json')}_devices.json"
+        entities_json_string = ""
+        devices_json_string = ""
+        for entity in self.entities:
+            entities_json_string += f"{json.dumps(entity.base_attributes, indent=4)}\n"
+            for device in entity.devices:
+                devices_json_string += f"{json.dumps(device, indent=4)}\n"
+        with open(entities_file_name, "w") as entities_file:
+            entities_file.write(entities_json_string)
+        with open(devices_file_name, "w") as devices_file:
+            devices_file.write(devices_json_string)
 
 
     def print_ontology(self, ontology_file_name):

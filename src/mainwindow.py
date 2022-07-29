@@ -59,18 +59,29 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.button_add_relationship.clicked.connect(self.add_relationship)
         self.ui.button_delete_relationship.clicked.connect(self.delete_relationship)
         self.ui.button_delete_all_entities.clicked.connect(self.clear_all)
+        self.ui.button_export_json.clicked.connect(self.export_json)
         self.ui.button_export_ontology.clicked.connect(self.export_ontology)
         self.ui.button_push_to_fiware.clicked.connect(self.push_to_fiware)
 
         # connect menu items to functions
         self.ui.menu_file_action_new.triggered.connect(self.make_new_bes)
-        self.ui.menu_file_action_import.triggered.connect(self.import_bes)
-        self.ui.menu_file_action_parse_fmu.triggered.connect(self.parse_fmu)
+        self.ui.menu_file_action_open.triggered.connect(self.import_bes)
         self.ui.menu_file_action_save.triggered.connect(self.bes_save)
         self.ui.menu_file_action_save_as.triggered.connect(self.bes_save_as)
+        self.ui.menu_file_action_export_json.triggered.connect(self.export_json)
         self.ui.menu_file_action_export_ontology.triggered.connect(self.export_ontology)
         self.ui.menu_file_action_post_to_fiware.triggered.connect(self.push_to_fiware)
         self.ui.menu_file_action_quit.triggered.connect(self.exit_application)
+
+        self.ui.menu_edit_action_parse_fmu.triggered.connect(self.parse_fmu)
+        self.ui.menu_edit_action_add_entity.triggered.connect(self.add_entity)
+        self.ui.menu_edit_action_add_relationship.triggered.connect(self.add_relationship)
+        self.ui.menu_edit_action_get_relationships_auto.triggered.connect(self.get_relationships_auto)
+        self.ui.menu_edit_action_devices.triggered.connect(self.show_devices)
+        self.ui.menu_edit_action_delete_entity.triggered.connect(self.delete_entity)
+        self.ui.menu_edit_action_delete_relationship.triggered.connect(self.delete_relationship)
+        self.ui.menu_edit_action_clear_all.triggered.connect(self.clear_all)
+
 
         # init bes
         self.bes_save_file_name = ""
@@ -166,7 +177,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def show_devices(self):
-        self.show_devices_dialog = ShowDevicesDialog(self.building_energy_system)
+        selected_entity = self.ui.list_widget_entities.currentRow()
+        self.show_devices_dialog = ShowDevicesDialog(self.building_energy_system, selected_entity)
         #self.show_devices_dialog.chosen_entity.connect(self.add_entity_to_bes)
         self.show_devices_dialog.setWindowModality(Qt.ApplicationModal)
         self.show_devices_dialog.show()
@@ -276,6 +288,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.add_relationship_dialog.new_relationship.connect(self.add_relationship_to_bes)
         self.add_relationship_dialog.setWindowModality(Qt.ApplicationModal)
         self.add_relationship_dialog.show()
+
+
+    def get_relationships_auto(self):
+        pass
+
+
+    def export_json(self):
+        json_file_name, check = QFileDialog.getSaveFileName(self, "Export JSON", "", "JSON File (*.json)")
+        if check:
+            self.building_energy_system.print_json(json_file_name)
 
 
     def export_ontology(self):

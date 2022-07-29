@@ -26,6 +26,7 @@ class BaseEntity():
         self.devices = []
         self.set_short_id(new_id)
         self.setup_standard_devices()
+        self.add_standard_attributes_to_devices()
 
 
     def set_short_id(self, new_id):
@@ -59,29 +60,37 @@ class BaseEntity():
         pass
 
 
+    def add_device(self, device_id, entity_name, entity_type, definition):
+        self.devices.append({
+                "device_id": device_id,
+                "entity_name": entity_name,
+                "entity_type": entity_type,
+                "definition": {
+                    "type": "text",
+                    "value": definition
+                }
+        })
+
+
+    def add_standard_attributes_to_devices(self):
+        isPartOf = {
+            "type": "Relationship",
+            "value": self.base_attributes['id']
+        }
+        for device in self.devices:
+            device["isPartOf"] = isPartOf
+            device["timezone"] = "Europe/Berlin"     # default value, can be set by user
+            device["protocol"] = "IoTA-JSON"
+            device["transport"] = "MQTT"
+
+
     def add_relationship(self, ref_entity, relationship_type):
 
         '''
-        # one to many relationship not possible using the same key under current
-        # architecture of fiware; instead instantiate many to one relationships
-        if relationship_type not in self.base_attributes:
-            self.base_attributes[relationship_type] = {
-                "type": "Relationship",
-                "value": ref_entity
-            }
-        elif type(self.base_attributes[relationship_type]) == list:
-            self.base_attributes[relationship_type].append({
-                "type": "Relationship",
-                "value": ref_entity
-            })
-        else:
-            self.base_attributes[relationship_type] = [self.base_attributes[relationship_type],
-                {
-                    "type": "Relationship",
-                    "value": ref_entity
-                }
-            ]
+        one to many relationship not possible using the same key under current
+        architecture of fiware; instead instantiate many to one relationships
         '''
+
         self.base_attributes.update({
             relationship_type: {
                 "type": "Relationship",

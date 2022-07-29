@@ -177,6 +177,113 @@ class BuildingEnergySystem():
         self.entities.append(base_entity.BaseEntity(new_bes_id, "Site"))
 
 
+    def set_relationships_automatically(self):
+
+        # delete all existing relationships
+        while len(self.relationships) > 0:
+            self.delete_relationship(len(self.relationships)-1)
+
+        # count container and key entities
+        hvac_system_count = [0, 0]
+        electrical_system_count = [0, 0]
+        water_system_count = [0, 0]
+        building_count = [0, 0]
+        water_heater_count = [0, 0]
+
+        # connect entities to root entity
+        for i, entity in enumerate(self.entities):
+            if entity.base_attributes["type"] == "Outside":
+                self.add_relationship(i, 0, "isPartOf")
+            if entity.base_attributes["type"] == "Building":
+                self.add_relationship(i, 0, "isPartOf")
+                building_count[0] += 1
+                building_count[1] = i
+            if entity.base_attributes["type"] == "HVAC_System":
+                hvac_system_count[0] += 1
+                hvac_system_count[1] += i
+            if entity.base_attributes["type"] == "Electrical_System":
+                electrical_system_count[0] += 1
+                electrical_system_count[1] += i
+            if entity.base_attributes["type"] == "Water_System":
+                water_system_count[0] += 1
+                water_system_count[1] += i
+            if entity.base_attributes["type"] == "Water_Heater":
+                water_heater_count[0] += 1
+                water_heater_count[1] += i
+
+        # add rooms and systems to building if possible (not possible if there are multiple buildings)
+        if building_count[0] == 1:
+            for i, entity in enumerate(self.entities):
+                if entity.base_attributes["type"] == "Room":
+                    self.add_relationship(i, building_count[1], "hasLocation")
+                if (entity.base_attributes["type"] == "HVAC_System") and (hvac_system_count[0] == 1):
+                    self.add_relationship(i, building_count[1], "isPartOf")
+                if (entity.base_attributes["type"] == "Water_System") and (water_system_count[0] == 1):
+                    self.add_relationship(i, building_count[1], "isPartOf")
+                if (entity.base_attributes["type"] == "Electrical_System") and (electrical_system_count[0] == 1):
+                    self.add_relationship(i, building_count[1], "isPartOf")
+
+        # connect systems directly to site if there is not a unique building
+        else:
+            for i, entity in enumerate(self.entities):
+                if entity.base_attributes["type"] == "HVAC_System":
+                    self.add_relationship(i, 0, "isPartOf")
+                if entity.base_attributes["type"] == "Water_System":
+                    self.add_relationship(i, 0, "isPartOf")
+                if entity.base_attributes["type"] == "Electrical_System":
+                    self.add_relationship(i, 0, "isPartOf")
+
+        # connect equipment to hvac system (if there is only one...)
+        if hvac_system_count[0] == 1:
+            for i, entity in enumerate(self.entities):
+                if entity.base_attributes["type"] == "Heat_Pump":
+                    self.add_relationship(i, hvac_system_count[1], "isPartOf")
+                if entity.base_attributes["type"] == "Cogeneration_Plant":
+                    self.add_relationship(i, hvac_system_count[1], "isPartOf")
+                if entity.base_attributes["type"] == "Electric_Boiler":
+                    self.add_relationship(i, hvac_system_count[1], "isPartOf")
+                if entity.base_attributes["type"] == "Natural_Gas_Boiler":
+                    self.add_relationship(i, hvac_system_count[1], "isPartOf")
+                if entity.base_attributes["type"] == "Solar_Thermal_Collector":
+                    self.add_relationship(i, hvac_system_count[1], "isPartOf")
+                if entity.base_attributes["type"] == "Radiator":
+                    self.add_relationship(i, hvac_system_count[1], "isPartOf")
+                if entity.base_attributes["type"] == "Water_Heater":
+                    self.add_relationship(i, hvac_system_count[1], "isPartOf")
+
+        # connect equipment to electrical system
+        if electrical_system_count[0] == 1:
+            for i, entity in enumerate(self.entities):
+                if entity.base_attributes["type"] == "PV_Panel":
+                    self.add_relationship(i, electrical_system_count[1], "isPartOf")
+                if entity.base_attributes["type"] == "PVT_Panel":
+                    self.add_relationship(i, electrical_system_count[1], "isPartOf")
+                if entity.base_attributes["type"] == "Battery":
+                    self.add_relationship(i, electrical_system_count[1], "isPartOf")
+
+        # pair rooms with radiators
+        for i, first_entity in enumerate(self.entities):
+            for j, ref_entity in enumerate(self.entities):
+                if (first_entity.base_attributes["type"] == "Radiator") and (ref_entity.base_attributes["type"] == "Room"):
+                    first_entity_number = first_entity.base_attributes["id"].split(":")[-1]
+                    ref_entity_number = ref_entity.base_attributes["id"].split(":")[-1]
+                    if first_entity_number == ref_entity_number:
+                        self.add_relationship(i, j, "hasLocation")
+                        self.add_relationship(i, j, "feeds")
+
+        # set feeds over water heater if possible
+        if water_heater_count[0] == 1:
+            for i, entity in enumerate(self.entities):
+                if ((entity.base_attributes["type"] == "Heat_Pump") or
+                    (entity.base_attributes["type"] == "Cogeneration_Plant") or
+                    (entity.base_attributes["type"] == "Solar_Thermal_Collector") or
+                    (entity.base_attributes["type"] == "PVT_Panel")):
+                    self.add_relationship(i, water_heater_count[1], "feeds")
+                if entity.base_attributes["type"] == "Radiator":
+                    self.add_relationship(i, water_heater_count[1], "isFedBy")
+
+
+
     def get_entity_count(self, entity_type):
         # this function returns the total amount of entites that have been
         # instantiated; if an entity was deleted, the count does not diminish

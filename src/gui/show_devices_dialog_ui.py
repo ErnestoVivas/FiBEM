@@ -52,7 +52,7 @@ class Ui_ShowDevicesDialog(object):
 
     def retranslateUi(self, ShowDevicesDialog):
         _translate = QtCore.QCoreApplication.translate
-        ShowDevicesDialog.setWindowTitle(_translate("ShowDevicesDialog", "Dialog"))
+        ShowDevicesDialog.setWindowTitle(_translate("ShowDevicesDialog", "Devices"))
         self.label.setText(_translate("ShowDevicesDialog", "Entity"))
         self.label_2.setText(_translate("ShowDevicesDialog", "Devices"))
         self.button_add_device.setText(_translate("ShowDevicesDialog", "Add"))

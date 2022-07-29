@@ -57,6 +57,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.button_parse_fmu.clicked.connect(self.parse_fmu)
         self.ui.button_devices.clicked.connect(self.show_devices)
         self.ui.button_add_relationship.clicked.connect(self.add_relationship)
+        self.ui.button_get_relationships_auto.clicked.connect(self.get_relationships_auto)
         self.ui.button_delete_relationship.clicked.connect(self.delete_relationship)
         self.ui.button_delete_all_entities.clicked.connect(self.clear_all)
         self.ui.button_export_json.clicked.connect(self.export_json)
@@ -158,6 +159,7 @@ class MainWindow(QtWidgets.QMainWindow):
             entity_type_no_prefix = ontology_strings.strip_prefix(entity_type_str)
             entity_id = f"urn:ngsi-ld:{new_bes_id}:{entity_type_no_prefix}:{str(current_entity_count + 1).zfill(3)}"
             self.building_energy_system.add_entity(int(entity), entity_id)
+        self.building_energy_system.set_relationships_automatically()
         self.display_bes()
 
 
@@ -291,7 +293,18 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def get_relationships_auto(self):
-        pass
+        get_rel_auto_message_box = QMessageBox()
+        get_rel_auto_message_box.setIcon(QMessageBox.Information)
+        get_rel_auto_message_box.setText(("This function will try to set the relationships between the\n"
+                                          "given entities automatically. Previously set relationships\n"
+                                          "will be removed. You can add or delete relationships after this\n"
+                                          "operation."))
+        get_rel_auto_message_box.setWindowTitle("Get Relationships Automatically")
+        get_rel_auto_message_box.setStandardButtons(QMessageBox.Ok|QMessageBox.Cancel)
+        answer = get_rel_auto_message_box.exec()
+        if answer == QMessageBox.Ok:
+            self.building_energy_system.set_relationships_automatically()
+            self.display_bes()
 
 
     def export_json(self):

@@ -1,6 +1,6 @@
 '''
-    BaseEntity is inherited by all other Entities and contains attributes and
-    functions that are part of all entities
+BaseEntity is inherited by all other Entities and contains attributes and
+functions that are part of all entities
 '''
 
 from bes_entities import ontology_strings

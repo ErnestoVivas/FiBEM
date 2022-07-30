@@ -1,0 +1,109 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix bsh: <https://brickschema.org/schema/BrickShape#> .
+@prefix dcterms: <http://purl.org/dc/terms#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix qudt: <http://qudt.org/schema/qudt/>.
+@prefix qudtqk: <http://qudt.org/vocab/quantitykind/>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdo: <http://schema.org/>.
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix tag: <https://brickschema.org/schema/BrickTag#> .
+@prefix unit: <http://qudt.org/vocab/unit/>.
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ebc: <https://www.ebc.eonerc.rwth-aachen.de/cms/~dmzz/E-ON-ERC-EBC/#> .
+
+
+ebc:my_house a brick:Site;
+    skos:definition "A geographic region containing 0 or more buildings. Typically used as the encapsulating location for a collection of Brick entities through the hasSite/isSiteOf relationships." .
+
+ebc:Heat_Pump_001 a ebc:Heat_Pump;
+    skos:definition "A device that transfers heat between spaces with the use of electrical energy, based on the refrigeration [vapor-compression] cycle.";
+    brick:isPartOf ebc:HVAC_System_001;
+    brick:feeds ebc:Water_Heater_001 .
+
+ebc:Electric_Boiler_001 a brick:Electric_Boiler;
+    skos:definition "A closed, pressure vessel that uses electricity for heating water or other fluids to supply steam or hot water for heating, humidification, or other applications.";
+    brick:isPartOf ebc:HVAC_System_001 .
+
+ebc:Natural_Gas_Boiler_001 a brick:Natural_Gas_Boiler;
+    skos:definition "A closed, pressure vessel that uses natural gas for heating water or other fluids to supply steam or hot water for heating, humidification, or other applications.";
+    brick:isPartOf ebc:HVAC_System_001;
+    brick:feeds ebc:Radiator_001 .
+
+ebc:Cogeneration_Plant_001 a ebc:Cogeneration_Plant;
+    skos:definition "A Cogeneration or combined heat and power plant is a machine that uses a heat engine to generate both electrical power and useful heat at the same time.";
+    brick:isPartOf ebc:HVAC_System_001;
+    brick:feeds ebc:Water_Heater_001 .
+
+ebc:Heat_Exchanger_001 a brick:Heat_Exchanger;
+    skos:definition "A heat exchanger is a piece of equipment built for efficient heat transfer from one medium to another. The media may be separated by a solid wall to prevent mixing or they may be in direct contact [BEDES].";
+    brick:isPartOf ebc:HVAC_System_001 .
+
+ebc:PV_Panel_001 a brick:PV_Panel;
+    skos:definition "An integrated assembly of interconnected photovoltaic cells designed to deliver a selected level of working voltage and current at its output terminals packaged for protection against environment degradation and suited for incorporation in photovoltaic power systems.";
+    brick:isPartOf ebc:Electrical_System_001 .
+
+ebc:PVT_Panel_001 a brick:PVT_Panel;
+    skos:definition "A type of solar panels that convert solar radiation into usable thermal and electrical energy.";
+    brick:isPartOf ebc:Electrical_System_001 .
+
+ebc:Solar_Thermal_Collector_001 a brick:Solar_Thermal_Collector;
+    skos:definition "A type of solar panels that converts solar radiation into thermal energy.";
+    brick:isPartOf ebc:HVAC_System_001;
+    brick:feeds ebc:Water_Heater_001 .
+
+ebc:Water_Heater_001 a brick:Water_Heater;
+    skos:definition "An apparatus for heating and usually storing hot water.";
+    brick:isPartOf ebc:HVAC_System_001 .
+
+ebc:Water_Distribution_001 a brick:Water_Distribution;
+    skos:definition "Utilize a water distribution source to represent how water is distributed across multiple destinations [pipes].";
+    brick:isPartOf ebc:Water_System_001 .
+
+ebc:Valve_001 a brick:Valve;
+    skos:definition "A device that regulates, directs or controls the flow of a fluid by opening, closing or partially obstructing various passageways.";
+    brick:isPartOf ebc:Water_System_001 .
+
+ebc:Pump_001 a brick:Pump;
+    skos:definition "Machine for imparting energy to a fluid, causing it to do work, drawing a fluid into itself through an entrance port, and forcing the fluid out through an exhaust port.";
+    brick:isPartOf ebc:Water_System_001 .
+
+ebc:Radiator_001 a brick:Radiator;
+    skos:definition "Heat exchangers designed to transfer thermal energy from one medium to another.";
+    brick:hasLocation ebc:Room_001;
+    brick:isPartOf ebc:HVAC_System_001;
+    brick:isFedBy ebc:Water_Heater_001 .
+
+ebc:Battery_001 a brick:Battery;
+    skos:definition "A container that stores chemical energy that can be converted into electricity and used as a source of power.";
+    brick:isPartOf ebc:Electrical_System_001 .
+
+ebc:HVAC_System_001 a brick:HVAC_System;
+    skos:definition "The equipment, distribution systems and terminals that provide, either collectively or individually, the processes of heating, ventilating or air conditioning to a building or portion of a building.";
+    brick:isPartOf ebc:Building_001;
+    brick:hasPart ebc:PVT_Panel_001 .
+
+ebc:Electrical_System_001 a brick:Electrical_System;
+    skos:definition "Devices that serve or are part of the electrical subsystem in the building.";
+    brick:isPartOf ebc:Building_001;
+    brick:hasPart ebc:Cogeneration_Plant_001 .
+
+ebc:Water_System_001 a brick:Water_System;
+    skos:definition "The equipment, devices and conduits that handle the production and distribution of water in a building.";
+    brick:isPartOf ebc:Building_001 .
+
+ebc:Room_001 a brick:Room;
+    skos:definition "Base class for all more specific room types.";
+    brick:hasLocation ebc:Building_001 .
+
+ebc:Building_001 a brick:Building;
+    skos:definition "An independent unit of the built environment with a characteristic spatial structure, intended to serve at least one function or user activity [ISO 12006-2:2013], a structure wholly or partially enclosed within exterior walls, or within exterior and party walls, and a roof, affording shelter to persons, animals, or property.";
+    brick:isPartOf ebc:my_house .
+
+ebc:Outside_001 a brick:Outside;
+    skos:definition "Entity that describes the weather and outside environment of the location of the considered site or building.";
+    brick:isPartOf ebc:my_house .

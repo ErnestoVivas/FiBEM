@@ -5,6 +5,7 @@ from bes_entities import ontology_strings
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QFont
 
 from fmpy import *
 from fmpy.util import plot_result, fmu_info
@@ -23,9 +24,9 @@ class ParseFmuDialog(QtWidgets.QDialog):
         self.ui.setupUi(self)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 
-        self.platform = "Windows"
+        #self.platform = "Windows"
         if (platform == "linux") or (platform == "linux2"):
-            self.platform == "linux"
+            #self.platform == "linux"
             self.ui.text_edit_fmu_info.setFont(QFont("DejaVu Sans Mono"))
             self.ui.text_edit_entities_and_relationships.setFont(QFont("DejaVu Sans Mono"))
 

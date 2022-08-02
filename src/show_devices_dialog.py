@@ -8,6 +8,7 @@ from bes_entities import ontology_strings
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QListWidgetItem
+from PyQt5.QtGui import QFont
 #from PyQt5.QtCore import pyqtSignal
 
 

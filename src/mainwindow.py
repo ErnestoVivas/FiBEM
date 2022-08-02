@@ -34,7 +34,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
-        self.setWindowTitle("FiBEM - The Fiware Building Entities Manager")
+        self.setWindowTitle("FiBEM - The Fiware Brick Entities Manager")
 
         # determine system type (important for fonts...)
         self.platform = "Windows"

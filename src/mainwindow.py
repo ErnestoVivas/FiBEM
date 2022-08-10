@@ -181,9 +181,14 @@ class MainWindow(QtWidgets.QMainWindow):
     def show_devices(self):
         selected_entity = self.ui.list_widget_entities.currentRow()
         self.show_devices_dialog = ShowDevicesDialog(self.building_energy_system, selected_entity)
-        #self.show_devices_dialog.chosen_entity.connect(self.add_entity_to_bes)
+        self.show_devices_dialog.deleted_device.connect(self.delete_device_from_entity)
         self.show_devices_dialog.setWindowModality(Qt.ApplicationModal)
         self.show_devices_dialog.show()
+
+
+    def delete_device_from_entity(self, entity_index, device_index):
+        self.building_energy_system.delete_device(entity_index, device_index)
+
 
     def write_bes_to_file(self, save_file_name):
         save_file_text = "# FiBEM save file"

@@ -72,6 +72,10 @@ class BaseEntity():
         })
 
 
+    def delete_device(self, device_index):
+        del self.devices[device_index]
+
+
     def add_standard_attributes_to_devices(self):
         isPartOf = {
             "type": "Relationship",

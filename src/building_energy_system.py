@@ -112,6 +112,10 @@ class BuildingEnergySystem():
         del self.entities[entity_index]
 
 
+    def delete_device(self, entity_index, device_index):
+        self.entities[entity_index].delete_device(device_index)
+
+
     def delete_relationship(self, relationship_index):
 
         # delete relationship attribute from correspondent entity

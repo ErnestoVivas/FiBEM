@@ -16,7 +16,8 @@ from PyQt5.QtCore import pyqtSignal
 
 class ShowDevicesDialog(QtWidgets.QDialog):
 
-    deleted_device = pyqtSignal(int, int)   # entity_id, device_id
+    deleted_device = pyqtSignal(int, int)       # entity_id, device_id
+    new_device = pyqtSignal(int, str, str, str) # entity_id, device_id, entity_name, entity_type
 
     def __init__(self, curr_bes, selected_entity_index):
 
@@ -87,9 +88,15 @@ class ShowDevicesDialog(QtWidgets.QDialog):
     def add_device(self):
         ref_entity_id = self.ui.combo_box_entities.currentText()
         self.add_device_dialog = AddDeviceDialog(ref_entity_id)
-        #self.show_devices_dialog.chosen_entity.connect(self.add_entity_to_bes)
+        self.add_device_dialog.new_device.connect(self.add_device_to_bes)
         self.add_device_dialog.setWindowModality(Qt.ApplicationModal)
         self.add_device_dialog.show()
+
+
+    def add_device_to_bes(self, device_id, entity_name, entity_type):
+        entity_index = self.ui.combo_box_entities.currentIndex()
+        self.new_device.emit(entity_index, device_id, entity_name, entity_type)
+        self.display_entity_devices()
 
 
     def delete_device(self):

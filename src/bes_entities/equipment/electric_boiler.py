@@ -23,23 +23,23 @@ class ElectricBoiler(BaseEntity):
         self.add_device(f"{self.short_id_ontology}_Electrical_Power_Sensor",
                         f"{self.base_attributes['id']}:Electrical_Power_Sensor",
                         "Electrical_Power_Sensor",
-                        f"{ontology_strings.sensor_definitions['Electrical_Power_Sensor']}")
+                        f"{ontology_strings.device_definitions['Electrical_Power_Sensor']}")
         self.add_device(f"{self.short_id_ontology}_Power_In_Command",
                         f"{self.base_attributes['id']}:Power_In:Command",
                         "Command",
-                        f"{ontology_strings.command_definitions['Command']}")
+                        f"{ontology_strings.device_definitions['Command']}")
         self.add_device(f"{self.short_id_ontology}_Thermal_Power_Sensor",
                         f"{self.base_attributes['id']}:Thermal_Power_Sensor",
                         "Thermal_Power_Sensor",
-                        f"{ontology_strings.sensor_definitions['Thermal_Power_Sensor']}")
+                        f"{ontology_strings.device_definitions['Thermal_Power_Sensor']}")
         self.add_device(f"{self.short_id_ontology}_Water_Flow_Sensor",
                         f"{self.base_attributes['id']}:Water_Flow_Sensor",
                         "Water_Flow_Sensor",
-                        f"{ontology_strings.sensor_definitions['Water_Flow_Sensor']}")
+                        f"{ontology_strings.device_definitions['Water_Flow_Sensor']}")
         self.add_device(f"{self.short_id_ontology}_conversionEfficiency",
                         f"{self.base_attributes['id']}:conversionEfficiency",
                         "conversionEfficiency",
-                        f"{ontology_strings.calculated_properties_definitions['conversionEfficiency']}")
+                        f"{ontology_strings.device_definitions['conversionEfficiency']}")
 
 
     def print_ontology_base_attributes(self, ttl_file_text):

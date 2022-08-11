@@ -22,23 +22,23 @@ class HeatPump(BaseEntity):
         self.add_device(f"{self.short_id_ontology}_Condenser_Thermal_Power_Sensor",
                         f"{self.base_attributes['id']}:Condenser:Thermal_Power_Sensor",
                         "Thermal_Power_Sensor",
-                        f"{ontology_strings.sensor_definitions['Thermal_Power_Sensor']}")
+                        f"{ontology_strings.device_definitions['Thermal_Power_Sensor']}")
         self.add_device(f"{self.short_id_ontology}_Evaporator_Thermal_Power_Sensor",
                         f"{self.base_attributes['id']}:Evaporator:Thermal_Power_Sensor",
                         "Thermal_Power_Sensor",
-                        f"{ontology_strings.sensor_definitions['Thermal_Power_Sensor']}")
+                        f"{ontology_strings.device_definitions['Thermal_Power_Sensor']}")
         self.add_device(f"{self.short_id_ontology}_Compressor_Electrical_Power_Sensor",
                         f"{self.base_attributes['id']}:Compressor:Electrical_Power_Sensor",
                         "Electrical_Power_Sensor",
-                        f"{ontology_strings.sensor_definitions['Electrical_Power_Sensor']}")
+                        f"{ontology_strings.device_definitions['Electrical_Power_Sensor']}")
         self.add_device(f"{self.short_id_ontology}_Compressor_Command",
                         f"{self.base_attributes['id']}:Compressor:Command",
                         "Command",
-                        f"{ontology_strings.command_definitions['Command']}")
+                        f"{ontology_strings.device_definitions['Command']}")
         self.add_device(f"{self.short_id_ontology}_COP",
                         f"{self.base_attributes['id']}:COP",
                         "COP",
-                        f"{ontology_strings.calculated_properties_definitions['COP']}")
+                        f"{ontology_strings.device_definitions['COP']}")
 
 
     def print_ontology_base_attributes(self, ttl_file_text):

@@ -112,6 +112,12 @@ class BuildingEnergySystem():
         del self.entities[entity_index]
 
 
+    def add_device(self, entity_index, device_id, entity_name, entity_type):
+        device_definition = ontology_strings.device_definitions[entity_type]
+        self.entities[entity_index].add_device(device_id, entity_name, entity_type, device_definition)
+        self.entities[entity_index].add_standard_attributes_to_devices()
+
+
     def delete_device(self, entity_index, device_index):
         self.entities[entity_index].delete_device(device_index)
 

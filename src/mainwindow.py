@@ -182,8 +182,13 @@ class MainWindow(QtWidgets.QMainWindow):
         selected_entity = self.ui.list_widget_entities.currentRow()
         self.show_devices_dialog = ShowDevicesDialog(self.building_energy_system, selected_entity)
         self.show_devices_dialog.deleted_device.connect(self.delete_device_from_entity)
+        self.show_devices_dialog.new_device.connect(self.add_device_to_bes)
         self.show_devices_dialog.setWindowModality(Qt.ApplicationModal)
         self.show_devices_dialog.show()
+
+
+    def add_device_to_bes(self, entity_index, device_id, entity_name, entity_type):
+        self.building_energy_system.add_device(entity_index, device_id, entity_name, entity_type)
 
 
     def delete_device_from_entity(self, entity_index, device_index):

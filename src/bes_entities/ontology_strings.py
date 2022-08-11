@@ -194,25 +194,18 @@ relationship_definition_by_value = {
 }
 
 
-sensor_definitions = {
+device_definitions = {
     "Sensor": (""),
     "Thermal_Power_Sensor": ("Measures the amount of instantaneous power consumed."),
     "Electrical_Power_Sensor": ("Measures the amount of instantaneous electrical power consumed."),
-    "Water_Flow_Sensor": ("Measures the rate of flow of water.")
-}
-
-
-calculated_properties_definitions = {
+    "Water_Flow_Sensor": ("Measures the rate of flow of water."),
     "COP": ("Coefficient of Performance: Ratio between outgoing heat and consumed power."),
     "conversionEfficiency": ("The percent efficiency of the conversion process "
-                             "(usually to power or energy) carried out by the entity")
-}
-
-
-command_definitions = {
+                             "(usually to power or energy) carried out by the entity"),
     "Command": ("A Command is an output point that directly determines the "
                 "behavior of equipment and/or affects relevant operational points."),
 }
+
 
 
 def get_entity_strings(entity_type):

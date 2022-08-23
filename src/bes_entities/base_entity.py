@@ -60,7 +60,7 @@ class BaseEntity():
         pass
 
 
-    def add_device(self, device_id, entity_name, entity_type, definition):
+    def add_device(self, device_id, entity_name, entity_type, definition, dynamic_attribute):
         self.devices.append({
                 "device_id": device_id,
                 "entity_name": entity_name,
@@ -68,7 +68,8 @@ class BaseEntity():
                 "definition": {
                     "type": "text",
                     "value": definition
-                }
+                },
+                "attributes": [dynamic_attribute]
         })
 
 
@@ -78,14 +79,16 @@ class BaseEntity():
 
     def add_standard_attributes_to_devices(self):
         isPartOf = {
+            "name": "isPartOf",
             "type": "Relationship",
             "value": self.base_attributes['id']
         }
         for device in self.devices:
-            device["isPartOf"] = isPartOf
+            device["static_attributes"] = [isPartOf]
             device["timezone"] = "Europe/Berlin"     # default value, can be set by user
             device["protocol"] = "IoTA-JSON"
             device["transport"] = "MQTT"
+
 
 
     def add_relationship(self, ref_entity, relationship_type):

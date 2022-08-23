@@ -187,8 +187,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show_devices_dialog.show()
 
 
-    def add_device_to_bes(self, entity_index, device_id, entity_name, entity_type):
-        self.building_energy_system.add_device(entity_index, device_id, entity_name, entity_type)
+    def add_device_to_bes(self, entity_index, device_id, entity_name, entity_type, dynamic_attribute):
+        self.building_energy_system.add_device(entity_index, device_id, entity_name, entity_type, dynamic_attribute)
 
 
     def delete_device_from_entity(self, entity_index, device_index):

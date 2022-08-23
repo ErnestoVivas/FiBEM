@@ -195,15 +195,28 @@ relationship_definition_by_value = {
 
 
 device_definitions = {
-    "Sensor": (""),
+    "Sensor": ("A Sensor is an input point that represents the value of a "
+               "device or instrument designed to detect and measure a variable "
+               "(ASHRAE Dictionary)."),
     "Thermal_Power_Sensor": ("Measures the amount of instantaneous power consumed."),
     "Electrical_Power_Sensor": ("Measures the amount of instantaneous electrical power consumed."),
     "Water_Flow_Sensor": ("Measures the rate of flow of water."),
-    "COP": ("Coefficient of Performance: Ratio between outgoing heat and consumed power."),
-    "conversionEfficiency": ("The percent efficiency of the conversion process "
-                             "(usually to power or energy) carried out by the entity"),
+    "Flow_Sensor": ("Measures the rate of flow of some substance."),
+    "Entering_Water_Temperature_Sensor": ("Measures the temperature of water entering "
+                                          "a piece of equipment or system."),
+    "Leaving_Water_Temperature_Sensor": ("Measures the temperature of water leaving "
+                                         "a piece of equipment or system."),
+    "Speed_Sensor": ("Measures the magnitude of velocity of some form of movement."),
+    "Pressure_Sensor": ("Measure the amount of force acting on a unit area."),
+    "Trace_Heat_Sensor": ("Measures the surface temperature of pipelines "
+                          "carrying temperature-sensitive products; "
+                          "typically used to avoid frosting/freezing."),
+    "Valve_Position_Sensor": ("Measures the current position of a valve "
+                              "in terms of the percent of fully open."),
     "Command": ("A Command is an output point that directly determines the "
                 "behavior of equipment and/or affects relevant operational points."),
+    "Valve_Command": ("Controls or reports the openness of a valve (typically "
+                      "as a proportion of its full range of motion)."),
 }
 
 

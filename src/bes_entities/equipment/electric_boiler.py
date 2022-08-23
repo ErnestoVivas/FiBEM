@@ -1,5 +1,5 @@
 from bes_entities.base_entity import BaseEntity
-from bes_entities.device_attributes import power_attr
+from bes_entities import device_attributes
 from bes_entities import ontology_strings
 
 
@@ -20,26 +20,31 @@ class ElectricBoiler(BaseEntity):
 
 
     def setup_standard_devices(self):
+        self.add_device(f"{self.short_id_ontology}_Electrical_Power_Command",
+                        f"{self.base_attributes['id']}:Electrical_Power:Command",
+                        "Command",
+                        f"{ontology_strings.device_definitions['Command']}",
+                        device_attributes.dynamic_device_attributes['power_attr'])
         self.add_device(f"{self.short_id_ontology}_Electrical_Power_Sensor",
                         f"{self.base_attributes['id']}:Electrical_Power_Sensor",
                         "Electrical_Power_Sensor",
-                        f"{ontology_strings.device_definitions['Electrical_Power_Sensor']}")
-        self.add_device(f"{self.short_id_ontology}_Power_In_Command",
-                        f"{self.base_attributes['id']}:Power_In:Command",
-                        "Command",
-                        f"{ontology_strings.device_definitions['Command']}")
-        self.add_device(f"{self.short_id_ontology}_Thermal_Power_Sensor",
-                        f"{self.base_attributes['id']}:Thermal_Power_Sensor",
-                        "Thermal_Power_Sensor",
-                        f"{ontology_strings.device_definitions['Thermal_Power_Sensor']}")
+                        f"{ontology_strings.device_definitions['Electrical_Power_Sensor']}",
+                        device_attributes.dynamic_device_attributes['power_attr'])
         self.add_device(f"{self.short_id_ontology}_Water_Flow_Sensor",
                         f"{self.base_attributes['id']}:Water_Flow_Sensor",
                         "Water_Flow_Sensor",
-                        f"{ontology_strings.device_definitions['Water_Flow_Sensor']}")
-        self.add_device(f"{self.short_id_ontology}_conversionEfficiency",
-                        f"{self.base_attributes['id']}:conversionEfficiency",
-                        "conversionEfficiency",
-                        f"{ontology_strings.device_definitions['conversionEfficiency']}")
+                        f"{ontology_strings.device_definitions['Water_Flow_Sensor']}",
+                        device_attributes.dynamic_device_attributes['volume_flow_attr'])
+        self.add_device(f"{self.short_id_ontology}_Entering_Water_Temperature_Sensor",
+                        f"{self.base_attributes['id']}:Entering_Water_Temperature_Sensor",
+                        "Entering_Water_Temperature_Sensor",
+                        f"{ontology_strings.device_definitions['Entering_Water_Temperature_Sensor']}",
+                        device_attributes.dynamic_device_attributes['temperature_attr'])
+        self.add_device(f"{self.short_id_ontology}_Leaving_Water_Temperature_Sensor",
+                        f"{self.base_attributes['id']}:Leaving_Water_Temperature_Sensor",
+                        "Leaving_Water_Temperature_Sensor",
+                        f"{ontology_strings.device_definitions['Leaving_Water_Temperature_Sensor']}",
+                        device_attributes.dynamic_device_attributes['temperature_attr'])
 
 
     def print_ontology_base_attributes(self, ttl_file_text):

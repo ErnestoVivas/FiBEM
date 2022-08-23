@@ -17,7 +17,7 @@ from PyQt5.QtCore import pyqtSignal
 class ShowDevicesDialog(QtWidgets.QDialog):
 
     deleted_device = pyqtSignal(int, int)       # entity_id, device_id
-    new_device = pyqtSignal(int, str, str, str) # entity_id, device_id, entity_name, entity_type
+    new_device = pyqtSignal(int, str, str, str, str) # entity_id, device_id, entity_name, entity_type, dynamic_attribute
 
     def __init__(self, curr_bes, selected_entity_index):
 
@@ -85,6 +85,9 @@ class ShowDevicesDialog(QtWidgets.QDialog):
             self.ui.list_widget_devices.setCurrentRow(current_device)
 
 
+    # Opens dialog to add a new device to an entity;
+    # if new dialog is closed with "ok" new device will be added, if
+    # closed with "cancel" nothing happens
     def add_device(self):
         ref_entity_id = self.ui.combo_box_entities.currentText()
         self.add_device_dialog = AddDeviceDialog(ref_entity_id)
@@ -93,12 +96,15 @@ class ShowDevicesDialog(QtWidgets.QDialog):
         self.add_device_dialog.show()
 
 
-    def add_device_to_bes(self, device_id, entity_name, entity_type):
+    # if new device was added, signal is emitted to bes to add the device
+    # and the current display is updated
+    def add_device_to_bes(self, device_id, entity_name, entity_type, dynamic_attribute):
         entity_index = self.ui.combo_box_entities.currentIndex()
-        self.new_device.emit(entity_index, device_id, entity_name, entity_type)
+        self.new_device.emit(entity_index, device_id, entity_name, entity_type, dynamic_attribute)
         self.display_entity_devices()
 
 
+    # deletes selected device from bes and updates current display
     def delete_device(self):
         entity_index = self.ui.combo_box_entities.currentIndex()
         device_index = self.ui.list_widget_devices.currentRow()

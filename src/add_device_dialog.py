@@ -11,7 +11,7 @@ from PyQt5.QtCore import pyqtSignal
 
 class AddDeviceDialog(QtWidgets.QDialog):
 
-    new_device = pyqtSignal(str, str, str)
+    new_device = pyqtSignal(str, str, str, str)
 
     def __init__(self, ref_entity_id):
         super().__init__()
@@ -40,7 +40,7 @@ class AddDeviceDialog(QtWidgets.QDialog):
         device_id = self.ui.line_edit_device_id.text()
         entity_name = self.ui.line_edit_entity_name.text()
         entity_type = self.ui.combo_box_entity_type.currentText()
-        self.new_device.emit(device_id, entity_name, entity_type)
+        self.new_device.emit(device_id, entity_name, entity_type, "temperature_attr")
         self.close()
 
 

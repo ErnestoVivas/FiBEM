@@ -20,6 +20,7 @@ from bes_entities.location import room
 from bes_entities.location import building
 from bes_entities.location import outside
 from bes_entities import ontology_strings
+from bes_entities import device_attributes
 
 import json
 
@@ -112,9 +113,10 @@ class BuildingEnergySystem():
         del self.entities[entity_index]
 
 
-    def add_device(self, entity_index, device_id, entity_name, entity_type):
+    def add_device(self, entity_index, device_id, entity_name, entity_type, dynamic_attribute):
         device_definition = ontology_strings.device_definitions[entity_type]
-        self.entities[entity_index].add_device(device_id, entity_name, entity_type, device_definition)
+        dynamic_device_attribute = device_attributes.dynamic_device_attributes[dynamic_attribute]
+        self.entities[entity_index].add_device(device_id, entity_name, entity_type, device_definition, dynamic_device_attribute)
         self.entities[entity_index].add_standard_attributes_to_devices()
 
 
